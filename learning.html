@@ -1,0 +1,396 @@
+<style>
+    .learning-journey {
+      background-color: #fff;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      color: #1e293b;
+      font: 500 16px Inter, sans-serif;
+    }
+    .content-wrapper {
+      background-color: #f8fafc;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 80px 59px;
+    }
+    @media (max-width: 991px) {
+      .content-wrapper {
+        max-width: 100%;
+        padding: 0 20px;
+      }
+    }
+    .inner-content {
+      display: flex;
+      width: 640px;
+      max-width: 100%;
+      flex-direction: column;
+    }
+    .separator {
+      border-radius: 8px;
+      background-color: #d9d9d9;
+      display: flex;
+      width: 576px;
+      max-width: 100%;
+      height: 1px;
+      margin: 0 32px;
+    }
+    @media (max-width: 991px) {
+      .separator {
+        margin-right: 10px;
+      }
+    }
+    .customization-form {
+      border-radius: 16px;
+      background-color: #fff;
+      box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
+      display: flex;
+      margin-top: 59px;
+      width: 100%;
+      flex-direction: column;
+      align-items: start;
+      padding: 32px;
+    }
+    @media (max-width: 991px) {
+      .customization-form {
+        max-width: 100%;
+        margin-top: 40px;
+        padding: 0 20px;
+      }
+    }
+    .form-title {
+      color: #1e293b;
+      font: 700 24px/1.4 Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      margin-bottom: 32px;
+    }
+    @media (max-width: 991px) {
+      .form-title {
+        max-width: 100%;
+      }
+    }
+    .form-label {
+      color: #1e293b;
+      font: 500 14px/1.4 Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      margin-bottom: 16px;
+    }
+    .language-select {
+      color: #64748b;
+      font-weight: 400;
+      margin-top: 24px;
+      width: 100%;
+      padding: 13px 16px;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      font: 400 16px Inter, sans-serif;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .language-select:hover {
+      border-color: #4f46e5;
+      box-shadow: 0 4px 6px rgba(79, 70, 229, 0.1);
+    }
+
+    .language-select:focus {
+      outline: none;
+      border-color: #4f46e5;
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+    }
+
+    .proficiency-options {
+      align-self: stretch;
+      display: flex;
+      margin-top: 8px;
+      gap: 16px;
+      color: #64748b;
+      font-weight: 500;
+      white-space: nowrap;
+      text-align: center;
+      flex-wrap: wrap;
+    }
+    @media (max-width: 991px) {
+      .proficiency-options {
+        max-width: 100%;
+        white-space: initial;
+      }
+    }
+    .proficiency-option {
+      border-radius: 12px;
+      background-color: #fff;
+      padding: 13px 30px;
+      border: 1px solid #e2e8f0;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+      text-transform: capitalize;
+    }
+
+    .proficiency-option:hover {
+      border-color: #4f46e5;
+      color: #4f46e5;
+      background-color: #f8fafc;
+      box-shadow: 0 4px 6px rgba(79, 70, 229, 0.1);
+      transform: translateY(-1px);
+    }
+
+    .proficiency-option.selected {
+      background-color: #4f46e5;
+      color: #fff;
+      border-color: #4f46e5;
+      box-shadow: 0 4px 6px rgba(79, 70, 229, 0.2);
+    }
+    .time-dedication {
+      align-self: stretch;
+      display: flex;
+      margin-top: 8px;
+      gap: 16px;
+      color: #64748b;
+      font-weight: 400;
+      flex-wrap: wrap;
+    }
+    @media (max-width: 991px) {
+      .time-dedication {
+        margin-right: 10px;
+      }
+    }
+    .time-slider {
+      border-radius: 12px;
+      background-color: #e2e8f0;
+      width: 100%;
+      height: 8px;
+      -webkit-appearance: none;
+      appearance: none;
+      cursor: pointer;
+    }
+
+    .time-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #4f46e5;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+      box-shadow: 0 2px 4px rgba(79, 70, 229, 0.2);
+    }
+
+    .time-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 6px rgba(79, 70, 229, 0.3);
+    }
+
+    .time-value {
+      color: #4f46e5;
+      font-weight: 500;
+      margin-left: 12px;
+    }
+    .study-duration {
+      display: flex;
+      margin-top: 8px;
+      width: 152px;
+      max-width: 100%;
+      gap: 20px;
+      color: #64748b;
+      font-weight: 400;
+      align-items: center;
+      justify-content: space-between;
+    }
+    @media (max-width: 991px) {
+      .study-duration {
+        white-space: initial;
+      }
+    }
+    .duration-control {
+      border-radius: 8px;
+      padding: 12px 16px;
+      border: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 24px;
+      height: 24px;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+    }
+    @media (max-width: 991px) {
+      .duration-control {
+        white-space: initial;
+      }
+    }
+    .duration-control:hover {
+      border-color: #4f46e5;
+      color: #4f46e5;
+    }
+    .learning-situation {
+      border-radius: 8px;
+      align-self: stretch;
+      display: flex;
+      margin-top: 8px;
+      height: 98px;
+      border: 1px solid #e2e8f0;
+    }
+    @media (max-width: 991px) {
+      .learning-situation {
+        max-width: 100%;
+      }
+    }
+    .submit-button {
+      border-radius: 8px;
+      background-color: #4f46e5;
+      border: none;
+      width: 100%;
+      margin-top: 32px;
+      color: #fff;
+      text-align: center;
+      padding: 12px;
+      font: 500 16px Inter, sans-serif;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+    }
+    @media (max-width: 991px) {
+      .submit-button {
+        max-width: 100%;
+        margin-top: 40px;
+        padding: 0 20px;
+      }
+    }
+    .submit-button:hover {
+      background-color: #4338ca;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 6px rgba(79, 70, 229, 0.2);
+    }
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+  </style>
+  
+  <div class="learning-journey">
+    <div class="content-wrapper">
+      <div class="inner-content">
+        <div class="separator"></div>
+        <form class="customization-form" onsubmit="handleLearningPlanSubmission(event)">
+          <h2 class="form-title">Let's Customize Your Learning Journey</h2>
+          <label for="language-select" class="form-label">Which language would you like to learn?</label>
+          <select id="language-select" class="language-select">
+            <option value="">Select a language</option>
+            <option value="english">English</option>
+            <option value="spanish">Spanish</option>
+            <option value="french">French</option>
+            <option value="german">German</option>
+            <option value="chinese">Chinese</option>
+            <option value="japanese">Japanese</option>
+            <option value="korean">Korean</option>
+            <option value="italian">Italian</option>
+            <option value="portuguese">Portuguese</option>
+          </select>
+          <label class="form-label">What's your current proficiency level?</label>
+          <div class="proficiency-options">
+            <button type="button" class="proficiency-option">Beginner</button>
+            <button type="button" class="proficiency-option">Intermediate</button>
+            <button type="button" class="proficiency-option">Advanced</button>
+          </div>
+          <label for="time-dedication" class="form-label">How much time can you dedicate daily?</label>
+          <div class="time-dedication">
+            <input type="range" id="time-dedication" class="time-slider" min="15" max="120" step="15" value="30">
+            <span class="time-value">30 minutes</span>
+          </div>
+          <label for="study-duration" class="form-label">How many months do you plan to study?</label>
+          <div class="study-duration">
+            <button type="button" class="duration-control" aria-label="Decrease months">-</button>
+            <span id="study-duration">2</span>
+            <button type="button" class="duration-control" aria-label="Increase months">+</button>
+          </div>
+          <label for="learning-situation" class="form-label">What situation are you learning for?</label>
+          <textarea id="learning-situation" class="learning-situation"></textarea>
+          <button type="submit" class="submit-button">Create My Learning Plan</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+<script>
+function handleLearningPlanSubmission(event) {
+  event.preventDefault();
+  
+  // Get form values
+  const language = document.getElementById('language-select').value;
+  const proficiencyLevel = document.querySelector('.proficiency-option.selected')?.textContent || '';
+  const timeDedication = document.getElementById('time-dedication').value;
+  const studyDuration = document.getElementById('study-duration').textContent;
+  const learningSituation = document.getElementById('learning-situation').value;
+
+  if (!language || !proficiencyLevel) {
+    alert('Please select a language and proficiency level');
+    return;
+  }
+
+  // Store learning plan data
+  localStorage.setItem('learningPlan', JSON.stringify({
+    language,
+    proficiencyLevel,
+    timeDedication,
+    studyDuration,
+    learningSituation,
+    progress: 0 // Initial progress
+  }));
+
+  // Redirect to home page
+  window.location.href = 'home.html';
+}
+
+// Add proficiency selection
+document.querySelectorAll('.proficiency-option').forEach(button => {
+  button.addEventListener('click', () => {
+    // Remove selected class from all buttons
+    document.querySelectorAll('.proficiency-option').forEach(btn => 
+      btn.classList.remove('selected'));
+    // Add selected class to clicked button
+    button.classList.add('selected');
+  });
+});
+
+// Add dynamic time slider
+const timeSlider = document.getElementById('time-dedication');
+const timeValue = timeSlider.nextElementSibling;
+
+timeSlider.addEventListener('input', function() {
+  timeValue.textContent = this.value + ' minutes';
+});
+
+// Populate language select from user profile if available
+window.addEventListener('DOMContentLoaded', () => {
+  const userProfile = JSON.parse(localStorage.getItem('userProfile') || '{}');
+  if (userProfile.languages && userProfile.languages.length > 0) {
+    const languageSelect = document.getElementById('language-select');
+    userProfile.languages.forEach(lang => {
+      const option = document.createElement('option');
+      option.value = lang.toLowerCase();
+      option.textContent = lang;
+      languageSelect.appendChild(option);
+    });
+  }
+});
+
+// Add handlers for study duration controls
+document.querySelectorAll('.duration-control').forEach(button => {
+  button.addEventListener('click', () => {
+    const durationSpan = document.getElementById('study-duration');
+    let months = parseInt(durationSpan.textContent);
+    
+    if (button.textContent === '+' && months < 12) {
+      months++;
+    } else if (button.textContent === '-' && months > 1) {
+      months--;
+    }
+    
+    durationSpan.textContent = months;
+  });
+});
+</script>

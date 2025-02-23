@@ -1,0 +1,588 @@
+<style>
+    .progress-percentage {
+      color: var(--indigo-600);
+      margin-top: 8px;
+      font: 700 16px Inter, sans-serif;
+    }
+    .home-screen {
+      background-color: #fff;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .main-container {
+      background-color: #f8fafc;
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      align-items: center;
+      padding-bottom: 80px;
+    }
+    @media (max-width: 991px) {
+      .main-container {
+        max-width: 100%;
+      }
+    }
+    .header {
+      background-color: #fff;
+      align-self: stretch;
+      display: flex;
+      gap: 20px;
+      color: #fff;
+      white-space: nowrap;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      padding: 14px 24px;
+      font: 700 16px Inter, sans-serif;
+    }
+    @media (max-width: 991px) {
+      .header {
+        max-width: 100%;
+        white-space: initial;
+        padding: 0 20px;
+      }
+    }
+    .logo {
+      aspect-ratio: 3.22;
+      object-fit: contain;
+      object-position: center;
+      width: 148px;
+      max-width: 100%;
+    }
+    .user-avatar {
+      border-radius: 8px;
+      background-color: #818cf8;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      margin: auto 0;
+    }
+    @media (max-width: 991px) {
+      .user-avatar {
+        white-space: initial;
+      }
+    }
+    .divider {
+      background-color: #e2e8f0;
+      align-self: stretch;
+      display: flex;
+      height: 1px;
+    }
+    @media (max-width: 991px) {
+      .divider {
+        max-width: 100%;
+      }
+    }
+    .progress-section {
+      border-radius: 16px;
+      background-color: #fff;
+      box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
+      display: flex;
+      margin-top: 23px;
+      width: 100%;
+      max-width: 1224px;
+      flex-direction: column;
+      padding: 32px;
+    }
+    @media (max-width: 991px) {
+      .progress-section {
+        max-width: 100%;
+        padding: 0 20px;
+      }
+    }
+    .progress-title {
+      color: #1e293b;
+      align-self: flex-start;
+      font: 700 24px/1 Inter, sans-serif;
+    }
+    .progress-bar-container {
+      border-radius: 8px;
+      background-color: #e2e8f0;
+      display: flex;
+      margin-top: 16px;
+      width: 100%;
+      height: 8px;
+    }
+    .progress-bar {
+      border-radius: 8px;
+      background-color: #4f46e5;
+      width: 65%;
+      height: 100%;
+    }
+    .progress-labels {
+      display: flex;
+      margin-top: 8px;
+      width: 100%;
+      justify-content: space-between;
+      color: #64748b;
+      font: 400 14px/1 Inter, sans-serif;
+    }
+    @media (max-width: 991px) {
+      .progress-labels {
+        max-width: 100%;
+      }
+    }
+    .active-modules-section {
+      border-radius: 16px;
+      background-color: #fff;
+      box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
+      display: flex;
+      margin-top: 24px;
+      width: 100%;
+      max-width: 1224px;
+      padding: 32px;
+    }
+    @media (max-width: 991px) {
+      .active-modules-section {
+        max-width: 100%;
+        padding: 0 20px;
+      }
+    }
+    .modules-content {
+      display: flex;
+      flex-direction: column;
+      font-weight: 700;
+      width: 100%;
+    }
+    .active-modules-title {
+      color: #1e293b;
+      font: 700 24px/1.4 Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      align-self: flex-start;
+    }
+    .modules-list {
+      display: flex;
+      margin-top: 24px;
+      width: 100%;
+      gap: 16px;
+    }
+    .module-icons {
+      display: flex;
+      flex-direction: column;
+      color: #fff;
+      white-space: nowrap;
+    }
+    @media (max-width: 991px) {
+      .module-icons {
+        white-space: initial;
+      }
+    }
+    .module-icon-f1 {
+      border-radius: 8px;
+      background-color: #818cf8;
+      width: 48px;
+      height: 48px;
+      padding: 0 16px;
+    }
+    @media (max-width: 991px) {
+      .module-icon-f1 {
+        white-space: initial;
+      }
+    }
+    .module-icon-f2 {
+      border-radius: 8px;
+      background-color: #6366f1;
+      margin-top: 16px;
+      width: 48px;
+      height: 48px;
+      padding: 0 14px;
+    }
+    @media (max-width: 991px) {
+      .module-icon-f2 {
+        white-space: initial;
+      }
+    }
+    .module-details {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      color: #1e293b;
+      flex-grow: 1;
+      margin-left: 16px;
+    }
+    .module-title {
+      align-self: stretch;
+      margin-bottom: 8px;
+    }
+    .module-lesson {
+      color: #64748b;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1;
+    }
+    .continue-buttons {
+      margin-top: 24px;
+      align-self: flex-start;
+      display: flex;
+      flex-direction: column;
+      font-size: 16px;
+      color: #fff;
+      font-weight: 400;
+      white-space: nowrap;
+      text-align: center;
+    }
+    @media (max-width: 991px) {
+      .continue-buttons {
+        margin-top: 40px;
+        white-space: initial;
+      }
+    }
+    .continue-btn {
+      cursor: pointer;
+      border-radius: 7px;
+      background-color: #4f46e5;
+      color: #fff;
+      padding: 8px 16px;
+      font-weight: 500;
+      border: none;
+      transition: background-color 0.2s;
+    }
+    @media (max-width: 991px) {
+      .continue-btn {
+        padding-right: 20px;
+        white-space: initial;
+      }
+    }
+    .continue-btn:hover {
+      background-color: #4338ca;
+    }
+    .upcoming-modules-section {
+      border-radius: 16px;
+      background-color: #fff;
+      box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
+      display: flex;
+      margin-top: 24px;
+      width: 100%;
+      max-width: 1224px;
+      flex-direction: column;
+      padding: 32px;
+    }
+    @media (max-width: 991px) {
+      .upcoming-modules-section {
+        max-width: 100%;
+        padding: 0 20px;
+      }
+    }
+    .upcoming-modules-title {
+      color: #1e293b;
+      font-size: 24px;
+      line-height: 1;
+    }
+    .upcoming-modules-list {
+      margin-top: 24px;
+      width: 100%;
+    }
+    .module-icon-c1, .module-icon-a1 {
+      border-radius: 8px;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+    }
+    .module-icon-c1 {
+      background-color: #a5b4fc;
+    }
+    .module-icon-a1 {
+      background-color: #818cf8;
+    }
+    .unlock-info {
+      color: #64748b;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1;
+    }
+    .leaderboard-section {
+      border-radius: 16px;
+      background-color: #fff;
+      box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
+      display: flex;
+      margin-top: 24px;
+      width: 100%;
+      max-width: 1224px;
+      flex-direction: column;
+      font-family: Inter, sans-serif;
+      white-space: nowrap;
+      padding: 24px 0 2px;
+    }
+    @media (max-width: 991px) {
+      .leaderboard-section {
+        max-width: 100%;
+        white-space: initial;
+      }
+    }
+    .leaderboard-title {
+      color: #1e293b;
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1;
+      align-self: flex-start;
+      margin-left: 24px;
+    }
+    @media (max-width: 991px) {
+      .leaderboard-title {
+        margin-left: 10px;
+      }
+    }
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #fff;
+      box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: space-around;
+      padding: 12px 0;
+      z-index: 1000;
+    }
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #64748b;
+      text-decoration: none;
+      font-family: Inter, sans-serif;
+      font-size: 12px;
+      gap: 4px;
+    }
+    .nav-item.active {
+      color: #4f46e5;
+    }
+    .nav-icon {
+      font-size: 24px;
+    }
+    .profile-avatar {
+      border-radius: 4px;
+      background-color: #818cf8;
+      color: #fff;
+      width: 24px;
+      height: 24px;
+      padding: 0 4px;
+    }
+    @media (max-width: 991px) {
+      .profile-avatar {
+        margin-right: 7px;
+        white-space: initial;
+      }
+    }
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+    .module-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      margin-bottom: 16px;
+      padding: 8px 0;
+    }
+    .module-row:last-child {
+      margin-bottom: 0;
+    }
+    .module-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .module-icon-f1, .module-icon-f2 {
+      border-radius: 8px;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+    }
+    .module-icon-f1 {
+      background-color: #818cf8;
+    }
+    .module-icon-f2 {
+      background-color: #6366f1;
+    }
+    /* Leaderboard styles */
+    .leaderboard-list {
+      padding: 16px 24px;
+    }
+    .leaderboard-item {
+      display: flex;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .leaderboard-item:last-child {
+      border-bottom: none;
+    }
+    .rank {
+      width: 24px;
+      font-weight: 700;
+      color: #1e293b;
+    }
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+    }
+    .user-avatar-small {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      background-color: #818cf8;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .user-name {
+      color: #1e293b;
+      font-weight: 500;
+    }
+    .score {
+      color: #64748b;
+      font-weight: 500;
+    }
+    .learning-journey {
+      background-color: #fff;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      color: #1e293b;
+      font: 500 16px/1.5 Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+</style>
+    
+    <div class="home-screen">
+      <div class="main-container">
+        <header class="header">
+          <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/ff40d7229ec140058f362151fc1e4153/3a4a576d2df44e485d501912f9b1896d9a86d47fd61f6ba75de56c52d224e040?apiKey=ff40d7229ec140058f362151fc1e4153&" class="logo" alt="Company logo" />
+          <div class="user-avatar" aria-label="User avatar">JD</div>
+        </header>
+        <div class="divider"></div>
+        <section class="progress-section">
+          <h2 class="progress-title">Your Progress</h2>
+          <div class="progress-percentage">65%</div>
+          <div class="progress-bar-container">
+            <div class="progress-bar" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <div class="progress-labels">
+            <div>0 Lessons</div>
+            <div>25 Lessons</div>
+          </div>
+        </section>
+        <section class="active-modules-section">
+          <div class="modules-content">
+            <h2 class="active-modules-title">Active Modules</h2>
+            <div class="modules-list">
+              <div style="width: 100%;">
+                <div class="module-row">
+                  <div class="module-left">
+                    <div class="module-icon-f1" aria-hidden="true">F1</div>
+                    <div>
+                      <h3 class="module-title">Customer Greetings</h3>
+                      <p class="module-lesson">Continue Lesson 3</p>
+                    </div>
+                  </div>
+                  <button class="continue-btn" onclick="window.location.href='lesson.html'">Continue</button>
+                </div>
+                <div class="module-row">
+                  <div class="module-left">
+                    <div class="module-icon-f2" aria-hidden="true">F2</div>
+                    <div>
+                      <h3 class="module-title">Resolving Queries</h3>
+                      <p class="module-lesson">Continue Lesson 1</p>
+                    </div>
+                  </div>
+                  <button class="continue-btn" onclick="window.location.href='lesson.html'">Continue</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="upcoming-modules-section">
+          <h2 class="upcoming-modules-title">Upcoming Modules</h2>
+          <div class="upcoming-modules-list">
+            <div style="width: 100%;">
+              <div class="module-row">
+                <div class="module-left">
+                  <div class="module-icon-c1" aria-hidden="true">C1</div>
+                  <div>
+                    <h3 class="module-title">Sales Interactions</h3>
+                    <p class="unlock-info">Unlocks in 3 days</p>
+                  </div>
+                </div>
+              </div>
+              <div class="module-row">
+                <div class="module-left">
+                  <div class="module-icon-a1" aria-hidden="true">A1</div>
+                  <div>
+                    <h3 class="module-title">Advanced Communication</h3>
+                    <p class="unlock-info">Unlocks in 7 days</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="leaderboard-section">
+          <h2 class="leaderboard-title">Leaderboard</h2>
+          <div class="leaderboard-list">
+            <div class="leaderboard-item">
+              <div class="rank">1</div>
+              <div class="user-info">
+                <div class="user-avatar-small">JD</div>
+                <span class="user-name">John Doe</span>
+              </div>
+              <div class="score">980 pts</div>
+            </div>
+            <div class="leaderboard-item">
+              <div class="rank">2</div>
+              <div class="user-info">
+                <div class="user-avatar-small">AS</div>
+                <span class="user-name">Alice Smith</span>
+              </div>
+              <div class="score">850 pts</div>
+            </div>
+            <div class="leaderboard-item">
+              <div class="rank">3</div>
+              <div class="user-info">
+                <div class="user-avatar-small">RJ</div>
+                <span class="user-name">Robert Johnson</span>
+              </div>
+              <div class="score">720 pts</div>
+            </div>
+          </div>
+        </section>
+      </div>
+      <nav class="bottom-nav">
+        <a href="home.html" class="nav-item active">
+          <span class="nav-icon">🏠</span>
+          <span>Home</span>
+        </a>
+        <a href="search.html" class="nav-item">
+          <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/ff40d7229ec140058f362151fc1e4153/5695d02fa3b0812d4ddb1d63b57c02e0cf92fdeffaa402ac76d9cb4c0614b757?apiKey=ff40d7229ec140058f362151fc1e4153&" class="nav-icon" alt="Search Icon" />
+          <span>Search</span>
+        </a>
+        <a href="dashboard.html" class="nav-item">
+          <span class="nav-icon">📊</span>
+          <span>Dashboard</span>
+        </a>
+        <a href="profile.html" class="nav-item">
+          <span class="nav-icon">👤</span>
+          <span>Profile</span>
+        </a>
+      </nav>
+    </div>

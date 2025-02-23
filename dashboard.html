@@ -1,0 +1,489 @@
+<style>
+    .dashboard {
+      background-color: #fff;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .header {
+      background-color: #fff;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 28px 8px;
+      font-family: Inter, sans-serif;
+    }
+    .logo {
+      width: 148px;
+      max-width: 100%;
+    }
+    .title {
+      color: #1e293b;
+      font-size: 18px;
+      font-weight: 400;
+    }
+    .profile-btn {
+      border-radius: 7px;
+      background-color: #4f46e5;
+      color: #fff;
+      font-size: 16px;
+      padding: 8px 18px;
+    }
+    .main-content {
+      background-color: #f8fafc;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 16px 0 32px;
+      padding-bottom: 80px;
+    }
+    .content-wrapper {
+      margin-top: 24px;
+      width: 100%;
+      max-width: 1207px;
+      padding: 0 24px;
+    }
+    .grid-container {
+      display: flex;
+      gap: 20px;
+      width: 100%;
+    }
+    .progress-card {
+      border-radius: 16px;
+      background-color: #fff;
+      box-shadow: 0 8px 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      font-family: Inter, sans-serif;
+      flex: 1;
+      min-width: 250px;
+    }
+    .card-title {
+      color: #1e293b;
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .progress-circle {
+      position: relative;
+      width: 160px;
+      height: 160px;
+      margin: 16px auto 0;
+    }
+    .circle-bg {
+      fill: none;
+      stroke: #e2e8f0;
+      stroke-width: 10;
+    }
+    .circle-progress {
+      fill: none;
+      stroke: #4f46e5;
+      stroke-width: 10;
+      stroke-linecap: round;
+      transform: rotate(-90deg);
+      transform-origin: 50% 50%;
+      transition: stroke-dashoffset 0.5s ease;
+    }
+    .progress-value {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 30px;
+      color: #4f46e5;
+      font-weight: 700;
+    }
+    .metrics-card {
+      border-radius: 16px;
+      background-color: #fff;
+      box-shadow: 0 8px 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      font-family: Inter, sans-serif;
+      flex: 2;
+      min-width: 350px;
+    }
+    .metric-item {
+      margin-top: 16px;
+    }
+    .metric-label {
+      color: #64748b;
+      font-size: 16px;
+      font-weight: 400;
+    }
+    .metric-value {
+      color: #4f46e5;
+      font-size: 16px;
+      font-weight: 700;
+    }
+    .progress-bar {
+      background-color: #e2e8f0;
+      border-radius: 7px;
+      height: 8px;
+      margin-top: 8px;
+    }
+    .progress-fill {
+      background: linear-gradient(90deg, #4f46e5 0%, #818cf8 100%);
+      border-radius: 7px;
+      height: 100%;
+      transition: width 0.5s ease;
+    }
+    .lessons-card {
+      border-radius: 16px;
+      background-color: #fff;
+      box-shadow: 0 8px 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      font-family: Inter, sans-serif;
+      flex: 1;
+      min-width: 300px;
+    }
+    .lesson-item {
+      display: flex;
+      gap: 16px;
+      margin-top: 12px;
+      padding: 8px 0;
+    }
+    .lesson-icon {
+      border-radius: 8px;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 700;
+    }
+    .lesson-details {
+      display: flex;
+      flex-direction: column;
+    }
+    .lesson-title {
+      color: #1e293b;
+      font-size: 16px;
+      font-weight: 700;
+    }
+    .lesson-date {
+      color: #64748b;
+      font-size: 14px;
+      font-weight: 400;
+    }
+    .activity-card {
+      border-radius: 16px;
+      background-color: #fff;
+      box-shadow: 0 8px 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      font-family: Inter, sans-serif;
+      flex: 2;
+      min-width: 400px;
+    }
+    .activity-chart {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      height: 180px;
+      margin-top: 16px;
+      gap: 8px;
+    }
+    .activity-bar {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .activity-column {
+      border-radius: 8px 8px 0 0;
+      width: 100%;
+    }
+    .activity-day {
+      color: #64748b;
+      font-size: 16px;
+      font-weight: 400;
+      margin-top: 8px;
+    }
+    .stats-card {
+      border-radius: 16px;
+      background-color: #4f46e5;
+      box-shadow: 0 8px 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      color: #fff;
+      font-family: Inter, sans-serif;
+      flex: 1;
+      min-width: 250px;
+    }
+    .stats-title {
+      font-size: 24px;
+      font-weight: 700;
+    }
+    .stat-item {
+      margin-top: 12px;
+    }
+    .stat-value {
+      font-size: 30px;
+      font-weight: 700;
+    }
+    .stat-label {
+      font-size: 14px;
+      font-weight: 400;
+    }
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #fff;
+      box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: space-around;
+      padding: 12px 0;
+      z-index: 1000;
+    }
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #64748b;
+      text-decoration: none;
+      font-family: Inter, sans-serif;
+      font-size: 12px;
+      gap: 4px;
+    }
+    .nav-item.active {
+      color: #4f46e5;
+    }
+    .nav-icon {
+      font-size: 24px;
+    }
+    @media (max-width: 1200px) {
+      .grid-container {
+        flex-wrap: wrap;
+      }
+      .progress-card,
+      .metrics-card,
+      .lessons-card,
+      .activity-card,
+      .stats-card {
+        flex: 1 1 300px;
+      }
+    }
+    @media (max-width: 768px) {
+      .content-wrapper {
+        padding: 0 16px;
+      }
+      .grid-container {
+        flex-direction: column;
+      }
+      .progress-card,
+      .metrics-card,
+      .lessons-card,
+      .activity-card,
+      .stats-card {
+        width: 100%;
+        min-width: unset;
+      }
+    }
+    /* Update progress fill colors for different metrics */
+    .metric-item:nth-child(1) .progress-fill {
+      background: linear-gradient(90deg, #10B981 0%, #34D399 100%);  /* Green for Accuracy */
+    }
+
+    .metric-item:nth-child(2) .progress-fill {
+      background: linear-gradient(90deg, #6366F1 0%, #818CF8 100%);  /* Indigo for Vocabulary */
+    }
+
+    .metric-item:nth-child(3) .progress-fill {
+      background: linear-gradient(90deg, #F59E0B 0%, #FCD34D 100%);  /* Amber for Grammar */
+    }
+
+    .metric-item:nth-child(4) .progress-fill {
+      background: linear-gradient(90deg, #EC4899 0%, #F472B6 100%);  /* Pink for Pronunciation */
+    }
+
+    .metric-item:nth-child(5) .progress-fill {
+      background: linear-gradient(90deg, #8B5CF6 0%, #A78BFA 100%);  /* Purple for Fluency */
+    }
+
+    /* Update metric value colors to match their bars */
+    .metric-item:nth-child(1) .metric-value { color: #10B981; }
+    .metric-item:nth-child(2) .metric-value { color: #6366F1; }
+    .metric-item:nth-child(3) .metric-value { color: #F59E0B; }
+    .metric-item:nth-child(4) .metric-value { color: #EC4899; }
+    .metric-item:nth-child(5) .metric-value { color: #8B5CF6; }
+</style>
+    
+    <div class="dashboard">
+      <header class="header">
+        <img src="https://cdn.builder.io/api/v1/image/assets/ff40d7229ec140058f362151fc1e4153/3a4a576d2df44e485d501912f9b1896d9a86d47fd61f6ba75de56c52d224e040?apiKey=ff40d7229ec140058f362151fc1e4153&" alt="Learning Dashboard Logo" class="logo">
+        <h1 class="title">Learning Dashboard</h1>
+        <button class="profile-btn">Profile</button>
+      </header>
+    
+      <main class="main-content">
+        <div class="content-wrapper">
+          <div class="grid-container">
+            <section class="progress-card">
+              <h2 class="card-title">Overall Progress</h2>
+              <div class="progress-circle">
+                <svg width="160" height="160" viewBox="0 0 160 160">
+                  <circle class="circle-bg" cx="80" cy="80" r="70"/>
+                  <circle class="circle-progress" cx="80" cy="80" r="70"
+                    stroke-dasharray="439.8"
+                    stroke-dashoffset="109.95"/>
+                </svg>
+                <span class="progress-value">75%</span>
+              </div>
+            </section>
+    
+            <section class="metrics-card">
+              <h2 class="card-title">Detailed Metrics</h2>
+              <div class="metric-item">
+                <div class="metric-label">Accuracy</div>
+                <div class="metric-value">92%</div>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="width: 92%;"></div>
+                </div>
+              </div>
+              <div class="metric-item">
+                <div class="metric-label">Vocabulary Retention</div>
+                <div class="metric-value">88%</div>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="width: 88%;"></div>
+                </div>
+              </div>
+              <div class="metric-item">
+                <div class="metric-label">Grammar Accuracy</div>
+                <div class="metric-value">85%</div>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="width: 85%;"></div>
+                </div>
+              </div>
+              <div class="metric-item">
+                <div class="metric-label">Pronunciation Score</div>
+                <div class="metric-value">82%</div>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="width: 82%;"></div>
+                </div>
+              </div>
+              <div class="metric-item">
+                <div class="metric-label">Speaking Fluency</div>
+                <div class="metric-value">78%</div>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="width: 78%;"></div>
+                </div>
+              </div>
+            </section>
+    
+            <section class="lessons-card">
+              <h2 class="card-title">Recent Lessons</h2>
+              <div class="lesson-item">
+                <div class="lesson-icon" style="background-color: #818cf8;">CG</div>
+                <div class="lesson-details">
+                  <div class="lesson-title">Customer Greetings</div>
+                  <div class="lesson-date">Completed Yesterday</div>
+                </div>
+              </div>
+              <div class="lesson-item">
+                <div class="lesson-icon" style="background-color: #f472b6;">HC</div>
+                <div class="lesson-details">
+                  <div class="lesson-title">Handling Complaints</div>
+                  <div class="lesson-date">Completed 2 days ago</div>
+                </div>
+              </div>
+              <div class="lesson-item">
+                <div class="lesson-icon" style="background-color: #34d399;">PI</div>
+                <div class="lesson-details">
+                  <div class="lesson-title">Product Inquiries</div>
+                  <div class="lesson-date">Completed 3 days ago</div>
+                </div>
+              </div>
+            </section>
+          </div>
+    
+          <div class="grid-container" style="margin-top: 24px;">
+            <section class="activity-card">
+              <h2 class="card-title">Weekly Activity</h2>
+              <div class="activity-chart">
+                <div class="activity-bar">
+                  <div class="activity-column" style="height: 58px; background-color: #818cf8;"></div>
+                  <div class="activity-day">Mon</div>
+                </div>
+                <div class="activity-bar">
+                  <div class="activity-column" style="height: 86px; background-color: #a5b4fc;"></div>
+                  <div class="activity-day">Tue</div>
+                </div>
+                <div class="activity-bar">
+                  <div class="activity-column" style="height: 154px; background-color: #4f46e5;"></div>
+                  <div class="activity-day">Wed</div>
+                </div>
+                <div class="activity-bar">
+                  <div class="activity-column" style="height: 115px; background-color: #6366f1;"></div>
+                  <div class="activity-day">Thu</div>
+                </div>
+                <div class="activity-bar">
+                  <div class="activity-column" style="height: 173px; background-color: #4f46e5;"></div>
+                  <div class="activity-day">Fri</div>
+                </div>
+                <div class="activity-bar">
+                  <div class="activity-column" style="height: 144px; background-color: #818cf8;"></div>
+                  <div class="activity-day">Sat</div>
+                </div>
+                <div class="activity-bar">
+                  <div class="activity-column" style="height: 77px; background-color: #a5b4fc;"></div>
+                  <div class="activity-day">Sun</div>
+                </div>
+              </div>
+            </section>
+    
+            <section class="stats-card">
+              <h2 class="stats-title">Quick Stats</h2>
+              <div class="stat-item">
+                <div class="stat-value">24</div>
+                <div class="stat-label">Lessons Completed</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-value">156</div>
+                <div class="stat-label">Phrases Mastered</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-value">12.5</div>
+                <div class="stat-label">Hours Practiced</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-value">8</div>
+                <div class="stat-label">Day Streak</div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <nav class="bottom-nav">
+      <a href="home.html" class="nav-item">
+        <span class="nav-icon">🏠</span>
+        <span>Home</span>
+      </a>
+      <a href="search.html" class="nav-item">
+        <span class="nav-icon">🔍</span>
+        <span>Search</span>
+      </a>
+      <a href="home.html" class="nav-item">
+        <span class="nav-icon">📚</span>
+        <span>Learn</span>
+      </a>
+      <a href="profile.html" class="nav-item">
+        <span class="nav-icon">👤</span>
+        <span>Profile</span>
+      </a>
+    </nav>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const circle = document.querySelector('.circle-progress');
+        const percent = 75;
+        const radius = circle.r.baseVal.value;
+        const circumference = radius * 2 * Math.PI;
+        const offset = circumference - (percent / 100 * circumference);
+        
+        circle.style.strokeDasharray = `${circumference} ${circumference}`;
+        circle.style.strokeDashoffset = offset;
+    });
+    </script>

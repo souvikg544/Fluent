@@ -1,0 +1,799 @@
+<style>
+    .lesson-screen {
+      background-color: #fff;
+      display: flex;
+      padding-right: 37px;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    @media (max-width: 991px) {
+      .lesson-screen {
+        padding-right: 20px;
+      }
+    }
+    .header-container {
+      display: flex;
+      gap: 6px;
+      font-family: Inter, sans-serif;
+      flex-wrap: wrap;
+    }
+    .header-content {
+      background-color: #fff;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      gap: 40px 100px;
+      flex-grow: 1;
+      flex-basis: auto;
+      padding: 13px 20px;
+    }
+    @media (max-width: 991px) {
+      .header-content {
+        max-width: 100%;
+      }
+    }
+    .logo {
+      aspect-ratio: 3.22;
+      object-fit: contain;
+      object-position: center;
+      width: 148px;
+      align-self: stretch;
+      max-width: 100%;
+    }
+    .lesson-title {
+      color: #1e293b;
+      font: 400 18px/1.5 Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      align-self: stretch;
+      margin: auto 0;
+    }
+    .user-initials {
+      color: #fff;
+      font-size: 16px;
+      font-weight: 700;
+      text-align: center;
+      align-self: stretch;
+      margin: auto 0;
+    }
+    .user-avatar {
+      border-radius: 8px;
+      background-color: #818cf8;
+      font-size: 16px;
+      color: #fff;
+      font-weight: 700;
+      width: 40px;
+      height: 40px;
+      margin: auto 0;
+      padding: 0 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    @media (max-width: 991px) {
+      .user-avatar {
+        white-space: initial;
+      }
+    }
+    .main-content {
+      align-self: center;
+      margin-top: 48px;
+      width: 851px;
+      max-width: 100%;
+      padding-bottom: 80px;
+    }
+    @media (max-width: 991px) {
+      .main-content {
+        margin-top: 40px;
+      }
+    }
+    .content-wrapper {
+      gap: 20px;
+      display: flex;
+    }
+    @media (max-width: 991px) {
+      .content-wrapper {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+      }
+    }
+    .lesson-column {
+      display: flex;
+      flex-direction: column;
+      line-height: normal;
+      width: 67%;
+      margin-left: 0;
+    }
+    @media (max-width: 991px) {
+      .lesson-column {
+        width: 100%;
+      }
+    }
+    .lesson-container {
+      border-radius: 16px;
+      background-color: #fff;
+      box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      margin: 0 auto;
+      padding: 35px 17px;
+    }
+    @media (max-width: 991px) {
+      .lesson-container {
+        max-width: 100%;
+        margin-top: 32px;
+        padding-right: 20px;
+      }
+    }
+    .video-container {
+      display: flex;
+      flex-direction: column;
+      border-radius: 8px;
+      position: relative;
+      width: 482px;
+      max-width: 100%;
+      overflow: hidden;
+    }
+    @media (max-width: 991px) {
+      .video-container {
+        width: 100%;
+        margin-right: 10px;
+      }
+    }
+    .video-background {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    .play-button {
+      display: none;
+    }
+    .tutor-info {
+      align-self: start;
+      display: flex;
+      gap: 21px;
+      margin: 24px 0 0 12px;
+    }
+    @media (max-width: 991px) {
+      .tutor-info {
+        margin-left: 10px;
+      }
+    }
+    .tutor-avatar-wrapper {
+      display: flex;
+      flex-direction: column;
+      padding: 2px 0;
+    }
+    .tutor-avatar {
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: start;
+      padding: 10px;
+    }
+    .tutor-image {
+      aspect-ratio: 1;
+      object-fit: contain;
+      object-position: center;
+      width: 66px;
+      align-self: stretch;
+      margin: auto 0;
+    }
+    .avatar-background {
+      border-radius: 7px;
+      background-color: #4f46e5;
+      display: flex;
+      margin-top: -83px;
+      width: 80px;
+      height: 80px;
+    }
+    @media (max-width: 991px) {
+      .avatar-background {
+        margin-right: 3px;
+      }
+    }
+    .tutor-details {
+      display: flex;
+      flex-direction: column;
+      font-family: Inter, sans-serif;
+      margin: auto 0;
+    }
+    .tutor-name {
+      color: #1e293b;
+      font: 700 20px/1.4 Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    .tutor-action {
+      color: #64748b;
+      font-size: 16px;
+      font-weight: 400;
+      align-self: start;
+      margin-top: 8px;
+    }
+    .query-container {
+      border-radius: 8px;
+      background-color: #f8fafc;
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      align-items: start;
+      font-family: Inter, sans-serif;
+      margin: 21px 0 0 15px;
+      padding: 25px 80px 25px 25px;
+      border: 1px solid #e2e8f0;
+    }
+    @media (max-width: 991px) {
+      .query-container {
+        max-width: 100%;
+        padding: 0 20px;
+      }
+    }
+    .query-text {
+      color: #1e293b;
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 2;
+    }
+    .action-buttons {
+      display: flex;
+      margin-top: 16px;
+      gap: 16px;
+      font-size: 16px;
+      color: #fff;
+      font-weight: 400;
+      text-align: center;
+    }
+    .listen-button {
+      border-radius: 7px;
+      background-color: #4f46e5;
+      display: flex;
+      gap: 13px;
+      padding: 8px 16px;
+      color: #fff;
+      align-items: center;
+      border: none;
+      cursor: pointer;
+    }
+    .listen-icon {
+      aspect-ratio: 1;
+      object-fit: contain;
+      object-position: center;
+      width: 20px;
+      margin: auto 0;
+      filter: brightness(0) invert(1);
+    }
+    .speak-button {
+      border-radius: 7px;
+      background-color: #4f46e5;
+      display: flex;
+      gap: 8px;
+      padding: 8px 16px;
+      color: #fff;
+      align-items: center;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .speak-button.recording {
+      background-color: #ef4444;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.7; }
+      100% { opacity: 1; }
+    }
+    .recording-indicator {
+      display: none;
+      color: #ef4444;
+      font-size: 14px;
+      margin-top: 8px;
+      text-align: center;
+    }
+    .recording-indicator.active {
+      display: block;
+    }
+    .speak-icon {
+      aspect-ratio: 1;
+      object-fit: contain;
+      object-position: center;
+      width: 20px;
+      margin: auto 0;
+      filter: brightness(0) invert(1);
+    }
+    .progress-column {
+      display: flex;
+      flex-direction: column;
+      line-height: normal;
+      width: 33%;
+      margin-left: 20px;
+    }
+    @media (max-width: 991px) {
+      .progress-column {
+        width: 100%;
+      }
+    }
+    .progress-container {
+      border-radius: 16px;
+      background-color: #fff;
+      box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      margin: 0 auto;
+      padding: 32px;
+    }
+    @media (max-width: 991px) {
+      .progress-container {
+        margin-top: 32px;
+        padding: 0 20px;
+      }
+    }
+    .progress-title {
+      color: #1e293b;
+      align-self: start;
+      font: 700 20px/1.4 Inter, sans-serif;
+    }
+    .completion-row {
+      display: flex;
+      margin-top: 24px;
+      gap: 20px;
+      white-space: nowrap;
+      justify-content: space-between;
+      font: 16px Inter, sans-serif;
+    }
+    @media (max-width: 991px) {
+      .completion-row {
+        white-space: initial;
+      }
+    }
+    .completion-label {
+      color: #64748b;
+      font-weight: 400;
+    }
+    .completion-value {
+      color: #4f46e5;
+      font-weight: 700;
+    }
+    .completion-bar {
+      border-radius: 7px;
+      background-color: #e2e8f0;
+      display: flex;
+      margin-top: 8px;
+      height: 8px;
+    }
+    .pronunciation-row {
+      display: flex;
+      margin-top: 24px;
+      gap: 22px;
+      font: 16px Inter, sans-serif;
+    }
+    .pronunciation-label {
+      color: #64748b;
+      font-weight: 400;
+      flex-grow: 1;
+      width: 145px;
+    }
+    .pronunciation-value {
+      color: #4f46e5;
+      font-weight: 700;
+    }
+    .pronunciation-bar-container {
+      border-radius: 7px;
+      background-color: #e2e8f0;
+      display: flex;
+      margin-top: 8px;
+      flex-direction: column;
+    }
+    .pronunciation-bar {
+      border-radius: 7px;
+      background-color: #10b981;
+      display: flex;
+      height: 8px;
+      width: 92%;
+    }
+    .tips-section {
+      margin-top: 32px;
+    }
+    .tips-title {
+      color: #1e293b;
+      font: 700 20px/1.4 Inter, sans-serif;
+      margin-bottom: 16px;
+    }
+    .tips-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .tip-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: Inter, sans-serif;
+      padding: 8px 0;
+    }
+    .tip-number {
+      border-radius: 7px;
+      background-color: #818cf8;
+      color: #fff;
+      font-size: 14px;
+      min-width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 8px;
+    }
+    .tip-text {
+      color: #64748b;
+      font-size: 16px;
+      line-height: 24px;
+      margin: 0;
+    }
+    .divider {
+      background-color: #e2e8f0;
+      display: flex;
+      margin-top: 29px;
+      height: 1px;
+    }
+    .next-phrase-button {
+      border-radius: 7px;
+      background-color: #4f46e5;
+      margin-top: 33px;
+      color: #fff;
+      text-align: center;
+      padding: 12px 46px;
+      font: 500 16px Inter, sans-serif;
+    }
+    @media (max-width: 991px) {
+      .next-phrase-button {
+        padding: 0 20px;
+      }
+    }
+    .footer {
+      background-color: #f8fafc;
+      display: flex;
+      margin-top: 35px;
+      width: 986px;
+      max-width: 100%;
+      flex-direction: column;
+      align-items: start;
+      color: #64748b;
+      white-space: nowrap;
+      padding: 56px 0 6px;
+      font: 400 12px Inter, sans-serif;
+    }
+    @media (max-width: 991px) {
+      .footer {
+        white-space: initial;
+      }
+    }
+    .footer-content {
+      background-color: #fff;
+      display: flex;
+      margin-right: -286px;
+      width: 100%;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 4px 70px;
+    }
+    @media (max-width: 991px) {
+      .footer-content {
+        max-width: 100%;
+        white-space: initial;
+        padding: 0 20px;
+      }
+    }
+    .footer-nav {
+      display: flex;
+      width: 100%;
+      max-width: 974px;
+      align-items: start;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+    @media (max-width: 991px) {
+      .footer-nav {
+        max-width: 100%;
+        white-space: initial;
+      }
+    }
+    .nav-item {
+      display: flex;
+      margin-top: 5px;
+      flex-direction: column;
+    }
+    @media (max-width: 991px) {
+      .nav-item {
+        white-space: initial;
+      }
+    }
+    .nav-icon {
+      aspect-ratio: 1;
+      object-fit: contain;
+      object-position: center;
+      width: 24px;
+    }
+    @media (max-width: 991px) {
+      .nav-icon {
+        margin: 0 8px;
+      }
+    }
+    .nav-text {
+      margin-top: 4px;
+      text-align: center;
+    }
+    .nav-item-active {
+      display: flex;
+      margin-top: 5px;
+      flex-direction: column;
+      color: #4f46e5;
+    }
+    .profile-item {
+      align-self: stretch;
+      display: flex;
+      flex-direction: column;
+      color: #fff;
+    }
+    @media (max-width: 991px) {
+      .profile-item {
+        white-space: initial;
+      }
+    }
+    .profile-initials {
+      align-self: center;
+    }
+    .profile-avatar {
+      border-radius: 4px;
+      background-color: #818cf8;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 700;
+    }
+    @media (max-width: 991px) {
+      .profile-avatar {
+        white-space: initial;
+        margin: 0 7px 0 6px;
+      }
+    }
+    .profile-text {
+      color: #64748b;
+      margin-top: 4px;
+      text-align: center;
+    }
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #fff;
+      box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: space-around;
+      padding: 12px 0;
+      z-index: 1000;
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #64748b;
+      text-decoration: none;
+      font-family: Inter, sans-serif;
+      font-size: 12px;
+      gap: 4px;
+    }
+
+    .nav-item.active {
+      color: #4f46e5;
+    }
+
+    .nav-icon {
+      font-size: 24px;
+    }
+</style>
+  
+  <div class="lesson-screen">
+    <header class="header-container">
+      <div class="header-content">
+        <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/ff40d7229ec140058f362151fc1e4153/3a4a576d2df44e485d501912f9b1896d9a86d47fd61f6ba75de56c52d224e040?apiKey=ff40d7229ec140058f362151fc1e4153&" class="logo" alt="Company Logo" />
+        <h1 class="lesson-title">Customer Greetings - Lesson 1</h1>
+        <span class="user-initials">JD</span>
+      </div>
+      <div class="user-avatar">JD</div>
+    </header>
+  
+    <main class="main-content">
+      <div class="content-wrapper">
+        <section class="lesson-column">
+          <div class="lesson-container">
+            <div class="video-container">
+              <video id="aiVideo" class="video-background" controls>
+                <source src="ai_avatar.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+            <div class="tutor-info">
+              <div class="tutor-avatar-wrapper">
+                <div class="tutor-avatar">
+                  <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/ff40d7229ec140058f362151fc1e4153/39c8c0762e374a1ab48377dd2846ed7a7164283df706eeaf2fd6d38277d363bc?apiKey=ff40d7229ec140058f362151fc1e4153&" class="tutor-image" alt="AI Tutor Sarah" />
+                </div>
+                <div class="avatar-background"></div>
+              </div>
+              <div class="tutor-details">
+                <h2 class="tutor-name">AI Tutor Sarah</h2>
+                <p class="tutor-action">Speak with me</p>
+              </div>
+            </div>
+            <div class="query-container">
+              <p class="query-text">I have a query regarding my delivery delay</p>
+              <div class="action-buttons">
+                <button class="listen-button">
+                  <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/ff40d7229ec140058f362151fc1e4153/cd0f47a2e67caf23917e74f842df201927edc402db9a9b28f3e17212ff41c96e?apiKey=ff40d7229ec140058f362151fc1e4153&" class="listen-icon" alt="Listen Icon" />
+                  Listen AI
+                </button>
+                <button class="speak-button" id="speakButton">
+                  <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/ff40d7229ec140058f362151fc1e4153/d065bae5e0c0833621eb4e39b36485448847767d7df33d64821a1a4c840a2233?apiKey=ff40d7229ec140058f362151fc1e4153&" class="speak-icon" alt="Speak Icon" />
+                  <span id="speakButtonText">Speak Now</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+  
+        <aside class="progress-column">
+          <div class="progress-container">
+            <h3 class="progress-title">Lesson Progress</h3>
+            <div class="completion-row">
+              <span class="completion-label">Completion</span>
+              <span class="completion-value">0%</span>
+            </div>
+            <div class="completion-bar"></div>
+            <div class="pronunciation-row">
+              <span class="pronunciation-label">Pronunciation Score</span>
+              <span class="pronunciation-value">92%</span>
+            </div>
+            <div class="pronunciation-bar-container">
+              <div class="pronunciation-bar"></div>
+            </div>
+            <div class="tips-section">
+              <h4 class="tips-title">Speaking Tips</h4>
+              <div class="tips-container">
+                <div class="tip-item">
+                  <span class="tip-number">1</span>
+                  <p class="tip-text">Speak clearly and at a moderate pace</p>
+                </div>
+                <div class="tip-item">
+                  <span class="tip-number">2</span>
+                  <p class="tip-text">Maintain a friendly, professional tone</p>
+                </div>
+                <div class="tip-item">
+                  <span class="tip-number">3</span>
+                  <p class="tip-text">Practice proper pronunciation</p>
+                </div>
+              </div>
+            </div>
+            <div class="divider"></div>
+            <button class="next-phrase-button">Next Phrase</button>
+          </div>
+        </aside>
+      </div>
+    </main>
+  
+    <footer class="footer">
+      <nav class="footer-content">
+        <ul class="footer-nav">
+          <li class="nav-item-active">
+            <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/ff40d7229ec140058f362151fc1e4153/2f7900b27de9a096c055c7e0e1ddce310cbd4c2396dec064d0f801f6ce90b5ac?apiKey=ff40d7229ec140058f362151fc1e4153&" class="nav-icon" alt="Home Icon" />
+            <span class="nav-text">Home</span>
+          </li>
+          <li class="nav-item">
+            <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/ff40d7229ec140058f362151fc1e4153/5695d02fa3b0812d4ddb1d63b57c02e0cf92fdeffaa402ac76d9cb4c0614b757?apiKey=ff40d7229ec140058f362151fc1e4153&" class="nav-icon" alt="Search Icon" />
+            <span class="nav-text">Search</span>
+          </li>
+          <li class="nav-item">
+            <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/ff40d7229ec140058f362151fc1e4153/705af78238fc5cef964405765a4a4856ceedbeccc9d5ca8ff262f7015e73eac9?apiKey=ff40d7229ec140058f362151fc1e4153&" class="nav-icon" alt="Dashboard Icon" />
+            <span class="nav-text">Dashboard</span>
+          </li>
+          <li class="profile-item">
+            <div class="profile-avatar">JD</div>
+            <span class="profile-text">Profile</span>
+          </li>
+        </ul>
+      </nav>
+    </footer>
+  </div>
+
+<script>
+let mediaRecorder;
+let audioChunks = [];
+let isRecording = false;
+
+document.getElementById('speakButton').addEventListener('click', async () => {
+    const button = document.getElementById('speakButton');
+    const buttonText = document.getElementById('speakButtonText');
+
+    if (!isRecording) {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            mediaRecorder = new MediaRecorder(stream);
+            audioChunks = [];
+
+            mediaRecorder.ondataavailable = (event) => {
+                audioChunks.push(event.data);
+            };
+
+            mediaRecorder.onstop = () => {
+                const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                // Here you can:
+                // 1. Send the audioBlob to your server
+                // 2. Play it back
+                // 3. Process it locally
+                console.log('Recording stopped, audio blob created');
+            };
+
+            // Start recording
+            mediaRecorder.start();
+            isRecording = true;
+            button.classList.add('recording');
+            buttonText.textContent = 'Stop Recording';
+
+        } catch (err) {
+            console.error('Error accessing microphone:', err);
+            alert('Unable to access microphone. Please ensure you have granted permission.');
+        }
+    } else {
+        // Stop recording
+        mediaRecorder.stop();
+        isRecording = false;
+        button.classList.remove('recording');
+        buttonText.textContent = 'Speak Now';
+        
+        // Stop all tracks in the stream
+        mediaRecorder.stream.getTracks().forEach(track => track.stop());
+    }
+});
+
+// Optional: Add keyboard shortcut (Space bar) to toggle recording
+document.addEventListener('keydown', (event) => {
+    if (event.code === 'Space' && event.target.tagName !== 'INPUT' && event.target.tagName !== 'TEXTAREA') {
+        event.preventDefault();
+        document.getElementById('speakButton').click();
+    }
+});
+
+// Add autoplay functionality if desired
+document.getElementById('aiVideo').addEventListener('loadedmetadata', function() {
+    // Ensure video has audio enabled
+    this.muted = false;
+    this.volume = 1.0;
+});
+</script>
+
+<!-- Add bottom navigation -->
+<nav class="bottom-nav">
+  <a href="home.html" class="nav-item">
+    <span class="nav-icon">🏠</span>
+    <span>Home</span>
+  </a>
+  <a href="search.html" class="nav-item">
+    <span class="nav-icon">🔍</span>
+    <span>Search</span>
+  </a>
+  <a href="dashboard.html" class="nav-item">
+    <span class="nav-icon">📊</span>
+    <span>Dashboard</span>
+  </a>
+  <a href="profile.html" class="nav-item">
+    <span class="nav-icon">👤</span>
+    <span>Profile</span>
+  </a>
+</nav>
