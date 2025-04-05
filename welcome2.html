@@ -116,7 +116,7 @@
       color: #1e293b;
       display: block;
       margin-bottom: 16px;
-      font: 500 14px/1.4 Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font: 500 14px/1.4 Inter, sans-serif;
     }
     @media (max-width: 991px) {
       .form-label {
@@ -128,7 +128,7 @@
       padding: 15px 16px;
       border-radius: 12px;
       border: 1px solid #e2e8f0;
-      font: 400 16px Inter, sans-serif;
+      font: 400 14px Inter, sans-serif;
       color: #1e293b;
       transition: all 0.2s ease-in-out;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
@@ -166,7 +166,7 @@
       padding: 13px 24px;
       border-radius: 12px;
       border: 1px solid #e2e8f0;
-      font: 500 16px/1.5 Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font: 500 14px/1.5 Inter, sans-serif;
       color: #64748b;
       background-color: #fff;
       cursor: pointer;
@@ -209,7 +209,7 @@
       color: #1e293b;
       padding: 16px 32px;
       border: 1px solid #e2e8f0;
-      font: 500 16px Inter, sans-serif;
+      font: 500 14px Inter, sans-serif;
       transition: all 0.2s ease-in-out;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     }
@@ -226,7 +226,7 @@
       color: #fff;
       padding: 16px 32px;
       border: none;
-      font: 500 16px Inter, sans-serif;
+      font: 500 14px Inter, sans-serif;
       transition: all 0.2s ease-in-out;
       box-shadow: 0 4px 6px rgba(79, 70, 229, 0.2);
     }
@@ -383,6 +383,11 @@
     .form-group:first-of-type {
       margin-top: 0;
     }
+
+    #learning-prompt {
+      font-size: 13px;
+      line-height: 1.5;
+    }
 </style>
     
     <div class="profile-setup">
@@ -426,6 +431,13 @@
                 <button type="button" class="language-button" onclick="toggleLanguage(this)">Italian</button>
                 <button type="button" class="language-button" onclick="toggleLanguage(this)">Portuguese</button>
               </div>
+            </div>
+            <div class="form-group">
+              <label for="learning-prompt" class="form-label">Learning Module Prompt</label>
+              <textarea id="learning-prompt" class="form-input" rows="6" readonly style="background-color: #f8fafc; cursor: not-allowed;">
+Create comprehensive language learning modules focusing on real-world business scenarios for "Concentrix". Include scenarios for situations like:
+Handling customer complaints professionally, Greeting customers and making introductions,Managing difficult customer situations, Providing product/service information, Closing conversations and follow-up procedures, etc.
+              </textarea>
             </div>
             <div id="proficiency-container" class="proficiency-container">
               <!-- Proficiency selections will be added here dynamically -->

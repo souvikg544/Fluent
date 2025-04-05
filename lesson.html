@@ -22,7 +22,7 @@
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
       display: flex;
       align-items: center;
-      gap: 40px 100px;
+      justify-content: space-between;
       flex-grow: 1;
       flex-basis: auto;
       padding: 13px 20px;
@@ -37,13 +37,21 @@
       object-fit: contain;
       object-position: center;
       width: 148px;
-      align-self: stretch;
-      max-width: 100%;
+      flex-shrink: 0;
     }
     .lesson-title {
       color: #1e293b;
-      font: 400 18px/1.5 Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      align-self: stretch;
+      font: 700 24px/1.5 Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      margin: 0;
+    }
+    .company-name {
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      font-weight: 700;
+      font-size: 20px;
+      color: #4f46e5;
       margin: auto 0;
     }
     .user-initials {
@@ -51,13 +59,13 @@
       font-size: 16px;
       font-weight: 700;
       text-align: center;
-      align-self: stretch;
       margin: auto 0;
+      font-family: 'Comic Sans MS', cursive;
     }
     .user-avatar {
       border-radius: 8px;
       background-color: #818cf8;
-      font-size: 16px;
+      font-size: 12px;
       color: #fff;
       font-weight: 700;
       width: 40px;
@@ -263,26 +271,49 @@
       margin: auto 0;
       filter: brightness(0) invert(1);
     }
-    .speak-button {
+    .speak-button,
+    .see-scores-button,
+    .prev-phrase-button,
+    .next-phrase-button {
       border-radius: 7px;
       background-color: #4f46e5;
-      display: flex;
-      gap: 8px;
-      padding: 8px 16px;
       color: #fff;
-      align-items: center;
+      text-align: center;
+      padding: 8px 16px;
+      font: 500 16px Inter, sans-serif;
       border: none;
       cursor: pointer;
       transition: background-color 0.3s;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      min-width: 140px;
+      justify-content: center;
+      height: 40px;
+    }
+    .speak-button:hover,
+    .see-scores-button:hover,
+    .prev-phrase-button:hover,
+    .next-phrase-button:hover {
+      background-color: #4338ca;
     }
     .speak-button.recording {
       background-color: #ef4444;
       animation: pulse 1.5s infinite;
     }
-    @keyframes pulse {
-      0% { opacity: 1; }
-      50% { opacity: 0.7; }
-      100% { opacity: 1; }
+    .see-scores-button:disabled,
+    .prev-phrase-button:disabled,
+    .next-phrase-button:disabled {
+      background-color: #cbd5e1;
+      cursor: not-allowed;
+    }
+    .prev-phrase-button,
+    .next-phrase-button {
+      background-color: #10b981;
+    }
+    .prev-phrase-button:hover,
+    .next-phrase-button:hover {
+      background-color: #059669;
     }
     .recording-indicator {
       display: none;
@@ -440,28 +471,8 @@
     .navigation-buttons {
       display: flex;
       gap: 12px;
-      margin-top: 16px;
-    }
-    .prev-phrase-button,
-    .next-phrase-button {
-      border-radius: 7px;
-      background-color: #4f46e5;
-      color: #fff;
-      text-align: center;
-      padding: 12px 46px;
-      font: 500 16px Inter, sans-serif;
-      border: none;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-    .prev-phrase-button:hover,
-    .next-phrase-button:hover {
-      background-color: #4338ca;
-    }
-    .prev-phrase-button:disabled,
-    .next-phrase-button:disabled {
-      background-color: #cbd5e1;
-      cursor: not-allowed;
+      margin-top: 32px;
+      justify-content: center;
     }
     .footer {
       background-color: #f8fafc;
@@ -681,6 +692,37 @@
       min-width: 40px;
       text-align: right;
     }
+
+    .video-title {
+      color: #1e293b;
+      font: 600 18px/1.4 Inter, sans-serif;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    .see-scores-button {
+      border-radius: 7px;
+      background-color: #cbd5e1;
+      display: flex;
+      gap: 8px;
+      padding: 8px 16px;
+      color: #fff;
+      align-items: center;
+      border: none;
+      cursor: not-allowed;
+      transition: all 0.3s;
+      font-size: 16px;
+      font-weight: 500;
+      min-width: 120px;
+      justify-content: center;
+    }
+    .see-scores-button.active {
+      background-color: #4f46e5;
+      cursor: pointer;
+    }
+    .see-scores-button.active:hover {
+      background-color: #4338ca;
+    }
 </style>
   
   <div class="lesson-screen">
@@ -688,15 +730,15 @@
       <div class="header-content">
         <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/ff40d7229ec140058f362151fc1e4153/3a4a576d2df44e485d501912f9b1896d9a86d47fd61f6ba75de56c52d224e040?apiKey=ff40d7229ec140058f362151fc1e4153&" class="logo" alt="Company Logo" />
         <h1 class="lesson-title">Customer Complaints</h1>
-        <span class="user-initials">JD</span>
+        <div class="company-name">Concentrix</div>
       </div>
-      <div class="user-avatar">JD</div>
     </header>
   
     <main class="main-content">
       <div class="content-wrapper">
         <section class="lesson-column">
           <div class="lesson-container">
+            <div class="video-title">Mobile Service Not Activated</div>
             <div class="video-container">
               <video id="aiVideo" class="video-background" controls>
                 <source src="videos/ai_avatar.mp4" type="video/mp4">
@@ -716,15 +758,15 @@
               </div>
             </div>
             <div class="query-container">
-              <p class="query-text">I have a query regarding my delivery delay</p>
+              <p class="query-text" id="queryText"></p>
               <div class="action-buttons">
-                <button class="listen-button" id="playbackButton" disabled>
-                  <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/ff40d7229ec140058f362151fc1e4153/cd0f47a2e67caf23917e74f842df201927edc402db9a9b28f3e17212ff41c96e?apiKey=ff40d7229ec140058f362151fc1e4153&" class="listen-icon" alt="Listen Icon" />
-                  Play Recording
-                </button>
                 <button class="speak-button" id="speakButton">
                   <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/ff40d7229ec140058f362151fc1e4153/d065bae5e0c0833621eb4e39b36485448847767d7df33d64821a1a4c840a2233?apiKey=ff40d7229ec140058f362151fc1e4153&" class="speak-icon" alt="Speak Icon" />
                   <span id="speakButtonText">Speak Now</span>
+                </button>
+                <button class="see-scores-button" id="seeScoresButton" disabled>
+                  <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/ff40d7229ec140058f362151fc1e4153/cd0f47a2e67caf23917e74f842df201927edc402db9a9b28f3e17212ff41c96e?apiKey=ff40d7229ec140058f362151fc1e4153&" class="listen-icon" alt="Scores Icon" />
+                  See Scores
                 </button>
               </div>
               <div class="audio-player" id="audioPlayer" style="display: none;">
@@ -740,13 +782,17 @@
                 </div>
               </div>
               <audio id="recordedAudio"></audio>
+              <div class="navigation-buttons" style="margin-top: 20px;">
+                <button class="prev-phrase-button">Previous Phrase</button>
+                <button class="next-phrase-button">Next Phrase</button>
+              </div>
             </div>
           </div>
         </section>
   
         <aside class="progress-column">
           <div class="progress-container">
-            <h3 class="progress-title">Lesson Progress</h3>
+            <h3 class="progress-title">Performance Scores</h3>
             <div class="completion-row">
               <span class="completion-label">Completion</span>
               <span class="completion-value">0%</span>
@@ -777,10 +823,6 @@
               </div>
             </div>
             <div class="divider"></div>
-            <div class="navigation-buttons">
-              <button class="prev-phrase-button">Previous Phrase</button>
-              <button class="next-phrase-button">Next Phrase</button>
-            </div>
           </div>
         </aside>
       </div>
@@ -802,7 +844,7 @@
             <span class="nav-text">Dashboard</span>
           </li>
           <li class="profile-item">
-            <div class="profile-avatar">JD</div>
+            <div class="profile-avatar">Concentrix</div>
             <span class="profile-text">Profile</span>
           </li>
         </ul>
@@ -818,17 +860,77 @@ let recordedAudioBlob = null;
 let isPlaying = false;
 let currentVideoIndex = 0;
 
-// Array of video sources
-const videoSources = [
-    'videos/ai_avatar.mp4',
-    'videos/lesson2.mp4',
-    'videos/lesson3.mp4'
+// Array of video sources, titles, and their corresponding messages
+const videoData = [
+    {
+        source: 'videos/ai_avatar.mp4',
+        title: 'Mobile Service Not Activated',
+        message: "I'm really sorry for the inconvenience. Let me verify your activation status and help you get connected as soon as possible.",
+        duration: 5500 // 5.5 seconds
+    },
+    {
+        source: 'videos/lesson2.mp4',
+        title: 'Internet not working',
+        message: "I understand your internet isn't working—I'm really sorry about the inconvenience.",
+        duration: 4000 // 4 seconds (4.5 - 0.5)
+    },
+    {
+        source: 'videos/lesson3.mp4',
+        title: 'Late Product Delivery',
+        message: "I completely understand your frustration with the delay. Let me check the tracking details and update you right away.",
+        duration: 5000 // 5 seconds
+    }
 ];
+
+// Function to type text with animation
+function typeText(text, element, duration) {
+    const words = text.split(' ');
+    const wordDelay = duration / words.length;
+    let i = 0;
+    element.textContent = '';
+    
+    function type() {
+        if (i < words.length) {
+            element.textContent += (i > 0 ? ' ' : '') + words[i];
+            i++;
+            setTimeout(type, wordDelay);
+        }
+    }
+    
+    type();
+}
+
+// Function to display message for current video
+function displayCurrentMessage() {
+    const queryText = document.getElementById('queryText');
+    queryText.textContent = '';
+    setTimeout(() => {
+        typeText(videoData[currentVideoIndex].message, queryText, videoData[currentVideoIndex].duration);
+    }, 300);
+}
+
+// Function to update video source, title, and message
+function updateVideoSource() {
+    const video = document.getElementById('aiVideo');
+    const videoTitle = document.querySelector('.video-title');
+    
+    video.src = videoData[currentVideoIndex].source;
+    videoTitle.textContent = videoData[currentVideoIndex].title;
+    
+    video.load(); // Reload the video
+    video.play(); // Start playing the new video
+
+    // Update button states
+    const prevButton = document.querySelector('.prev-phrase-button');
+    const nextButton = document.querySelector('.next-phrase-button');
+    
+    prevButton.disabled = currentVideoIndex === 0;
+    nextButton.disabled = currentVideoIndex === videoData.length - 1;
+}
 
 // Function to reset recording state
 function resetRecordingState() {
     const audioPlayer = document.getElementById('audioPlayer');
-    const playbackButton = document.getElementById('playbackButton');
     const playButton = document.getElementById('audioPlayButton');
     const progressBar = document.getElementById('audioProgressBar');
     const progressHandle = document.getElementById('audioProgressHandle');
@@ -837,7 +939,6 @@ function resetRecordingState() {
 
     // Reset audio player
     audioPlayer.style.display = 'none';
-    playbackButton.disabled = true;
     playButton.innerHTML = '<span class="play-icon">▶</span>';
     progressBar.style.width = '0%';
     progressHandle.style.left = '0%';
@@ -855,22 +956,22 @@ function resetRecordingState() {
     const speakButtonText = document.getElementById('speakButtonText');
     speakButton.classList.remove('recording');
     speakButtonText.textContent = 'Speak Now';
-}
-
-// Function to update video source
-function updateVideoSource() {
-    const video = document.getElementById('aiVideo');
-    video.src = videoSources[currentVideoIndex];
-    video.load(); // Reload the video
-    video.play(); // Start playing the new video
-
-    // Update button states
-    const prevButton = document.querySelector('.prev-phrase-button');
-    const nextButton = document.querySelector('.next-phrase-button');
     
-    prevButton.disabled = currentVideoIndex === 0;
-    nextButton.disabled = currentVideoIndex === videoSources.length - 1;
+    // Reset See Scores button
+    updateSeeScoresButton(false);
 }
+
+// Initialize video and add event listeners
+document.addEventListener('DOMContentLoaded', () => {
+    const video = document.getElementById('aiVideo');
+    
+    // Add play event listener
+    video.addEventListener('play', displayCurrentMessage);
+    
+    // Initial setup
+    updateVideoSource();
+    toggleProgressContainer(false);
+});
 
 // Previous Phrase button click handler
 document.querySelector('.prev-phrase-button').addEventListener('click', () => {
@@ -883,22 +984,36 @@ document.querySelector('.prev-phrase-button').addEventListener('click', () => {
 
 // Next Phrase button click handler
 document.querySelector('.next-phrase-button').addEventListener('click', () => {
-    if (currentVideoIndex < videoSources.length - 1) {
+    if (currentVideoIndex < videoData.length - 1) {
         currentVideoIndex++;
         resetRecordingState();
         updateVideoSource();
     }
 });
 
-// Initialize button states
-updateVideoSource();
+// Function to enable/disable See Scores button
+function updateSeeScoresButton(enabled) {
+    const seeScoresButton = document.getElementById('seeScoresButton');
+    if (enabled) {
+        seeScoresButton.disabled = false;
+        seeScoresButton.classList.add('active');
+    } else {
+        seeScoresButton.disabled = true;
+        seeScoresButton.classList.remove('active');
+    }
+}
+
+// Function to show/hide progress container
+function toggleProgressContainer(show) {
+    const progressContainer = document.querySelector('.progress-container');
+    progressContainer.style.display = show ? 'flex' : 'none';
+}
 
 document.getElementById('speakButton').addEventListener('click', async () => {
     const button = document.getElementById('speakButton');
     const buttonText = document.getElementById('speakButtonText');
-    const playbackButton = document.getElementById('playbackButton');
     const audioPlayer = document.getElementById('audioPlayer');
-
+    
     if (!isRecording) {
         try {
             const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -914,45 +1029,29 @@ document.getElementById('speakButton').addEventListener('click', async () => {
                 const audioUrl = URL.createObjectURL(recordedAudioBlob);
                 const recordedAudio = document.getElementById('recordedAudio');
                 recordedAudio.src = audioUrl;
-                playbackButton.disabled = false;
                 audioPlayer.style.display = 'block';
-                console.log('Recording stopped, audio blob created');
+                updateSeeScoresButton(true);
             };
 
-            // Start recording
             mediaRecorder.start();
             isRecording = true;
             button.classList.add('recording');
             buttonText.textContent = 'Stop Recording';
-            playbackButton.disabled = true;
             audioPlayer.style.display = 'none';
-
         } catch (err) {
             console.error('Error accessing microphone:', err);
             alert('Unable to access microphone. Please ensure you have granted permission.');
         }
     } else {
-        // Stop recording
         mediaRecorder.stop();
         isRecording = false;
         button.classList.remove('recording');
         buttonText.textContent = 'Speak Now';
-        
-        // Stop all tracks in the stream
         mediaRecorder.stream.getTracks().forEach(track => track.stop());
     }
 });
 
-// Add playback functionality
-document.getElementById('playbackButton').addEventListener('click', () => {
-    const recordedAudio = document.getElementById('recordedAudio');
-    const audioPlayer = document.getElementById('audioPlayer');
-    if (recordedAudio.src) {
-        audioPlayer.style.display = 'block';
-    }
-});
-
-// Audio player controls
+// Add audio player controls
 const audio = document.getElementById('recordedAudio');
 const playButton = document.getElementById('audioPlayButton');
 const progressBar = document.getElementById('audioProgressBar');
@@ -1005,6 +1104,46 @@ document.getElementById('aiVideo').addEventListener('loadedmetadata', function()
     this.volume = 1.0;
     // Auto-play the video
     this.play();
+});
+
+// Add See Scores functionality
+document.getElementById('seeScoresButton').addEventListener('click', () => {
+    if (!recordedAudioBlob) return;
+    
+    toggleProgressContainer(true);
+    
+    // Simulate API call to analyze speech
+    setTimeout(() => {
+        // Update scores and tips
+        document.querySelector('.completion-value').textContent = '85%';
+        document.querySelector('.pronunciation-value').textContent = '92%';
+        document.querySelector('.pronunciation-bar').style.width = '92%';
+        
+        // Update tips based on analysis
+        const tips = [
+            "Great job on pronunciation! Keep practicing.",
+            "Try to speak a bit slower for better clarity.",
+            "Your intonation is good, but could be more natural."
+        ];
+        
+        const tipsContainer = document.querySelector('.tips-container');
+        tipsContainer.innerHTML = '';
+        
+        tips.forEach((tip, index) => {
+            const tipItem = document.createElement('div');
+            tipItem.className = 'tip-item';
+            tipItem.innerHTML = `
+                <span class="tip-number">${index + 1}</span>
+                <p class="tip-text">${tip}</p>
+            `;
+            tipsContainer.appendChild(tipItem);
+        });
+    }, 1500);
+});
+
+// Make sure progress container is initially hidden
+document.addEventListener('DOMContentLoaded', () => {
+    toggleProgressContainer(false);
 });
 </script>
 

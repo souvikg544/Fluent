@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Calendar - Concentrix</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Inter, sans-serif;
+            background-color: #f8fafc;
+        }
+
+        .header {
+            background-color: #fff;
+            padding: 14px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            height: 40px;
+        }
+
+        .company-name {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            font-weight: 700;
+            font-size: 20px;
+            color: #4f46e5;
+        }
+
+        .calendar-container {
+            max-width: 1200px;
+            margin: 24px auto;
+            padding: 0 24px;
+        }
+
+        .calendar-title {
+            color: #1e293b;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+
+        .calendar-view {
+            display: flex;
+            gap: 24px;
+            margin-top: 24px;
+        }
+
+        .upcoming-events {
+            flex: 1;
+            background: #fff;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .events-title {
+            color: #1e293b;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .schedule-button {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            background-color: #4f46e5;
+            color: #fff;
+            font: 500 14px Inter, sans-serif;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .schedule-button:hover {
+            background-color: #4338ca;
+            transform: translateY(-1px);
+        }
+
+        .schedule-icon {
+            width: 16px;
+            height: 16px;
+        }
+
+        .event-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .event-item {
+            padding: 16px;
+            border-radius: 12px;
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+        }
+
+        .event-title {
+            color: #1e293b;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .event-date {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .event-duration {
+            color: #4f46e5;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        .calendar-frame {
+            flex: 2;
+            background: #fff;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            margin-top: 16px;
+            aspect-ratio: 7/6;
+        }
+
+        .calendar-header {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .calendar-day {
+            text-align: center;
+            font-weight: 600;
+            color: #64748b;
+            padding: 8px;
+        }
+
+        .calendar-date {
+            padding: 8px;
+            border-radius: 8px;
+            background: #f8fafc;
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .date-number {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 4px;
+            flex-shrink: 0;
+        }
+
+        .module-event {
+            background: #4f46e5;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-top: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            flex-shrink: 0;
+        }
+
+        .module-events-container {
+            overflow-y: auto;
+            flex-grow: 1;
+            scrollbar-width: thin;
+            scrollbar-color: #4f46e5 #f8fafc;
+        }
+
+        .module-events-container::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .module-events-container::-webkit-scrollbar-track {
+            background: #f8fafc;
+        }
+
+        .module-events-container::-webkit-scrollbar-thumb {
+            background-color: #4f46e5;
+            border-radius: 2px;
+        }
+
+        .current-month {
+            color: #1e293b;
+        }
+
+        .other-month {
+            color: #94a3b8;
+            background: #f1f5f9;
+        }
+
+        .today {
+            background: #e0e7ff;
+            border: 2px solid #4f46e5;
+        }
+
+        .back-button {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 8px;
+            background-color: #4f46e5;
+            color: #fff;
+            font: 500 14px Inter, sans-serif;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            margin-top: 24px;
+        }
+
+        .back-button:hover {
+            background-color: #4338ca;
+            transform: translateY(-1px);
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #fff;
+            box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0;
+            z-index: 1000;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #64748b;
+            text-decoration: none;
+            font-family: Inter, sans-serif;
+            font-size: 12px;
+            gap: 4px;
+        }
+
+        .nav-item.active {
+            color: #4f46e5;
+        }
+
+        .nav-icon {
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <img src="https://cdn.builder.io/api/v1/image/assets/ff40d7229ec140058f362151fc1e4153/3a4a576d2df44e485d501912f9b1896d9a86d47fd61f6ba75de56c52d224e040?apiKey=ff40d7229ec140058f362151fc1e4153&" alt="Company logo" class="logo" />
+        <div class="company-name">Concentrix</div>
+    </header>
+
+    <div class="calendar-container">
+        <h1 class="calendar-title">Learning Schedule</h1>
+        <div class="calendar-view">
+            <div class="upcoming-events">
+                <div class="events-title">
+                    <h2>Scheduled Modules</h2>
+                </div>
+                <div class="event-list" id="eventList">
+                    <!-- Events will be populated by JavaScript -->
+                </div>
+            </div>
+            <div class="calendar-frame">
+                <h2 class="events-title">Learning Calendar</h2>
+                <div class="calendar-header">
+                    <div class="calendar-day">Sun</div>
+                    <div class="calendar-day">Mon</div>
+                    <div class="calendar-day">Tue</div>
+                    <div class="calendar-day">Wed</div>
+                    <div class="calendar-day">Thu</div>
+                    <div class="calendar-day">Fri</div>
+                    <div class="calendar-day">Sat</div>
+                </div>
+                <div class="calendar-grid" id="calendarGrid">
+                    <!-- Calendar dates will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+        <button class="back-button" onclick="window.location.href='home.html'">
+            ← Back to Home
+        </button>
+    </div>
+
+    <nav class="bottom-nav">
+        <a href="home.html" class="nav-item">
+            <span class="nav-icon">🏠</span>
+            <span>Home</span>
+        </a>
+        <a href="search.html" class="nav-item">
+            <img src="https://cdn.builder.io/api/v1/image/assets/ff40d7229ec140058f362151fc1e4153/5695d02fa3b0812d4ddb1d63b57c02e0cf92fdeffaa402ac76d9cb4c0614b757?apiKey=ff40d7229ec140058f362151fc1e4153&" class="nav-icon" alt="Search Icon" />
+            <span>Search</span>
+        </a>
+        <a href="dashboard.html" class="nav-item">
+            <span class="nav-icon">📊</span>
+            <span>Dashboard</span>
+        </a>
+        <a href="profile.html" class="nav-item">
+            <span class="nav-icon">👤</span>
+            <span>Profile</span>
+        </a>
+    </nav>
+
+    <script>
+        function formatDate(date) {
+            return new Date(date).toLocaleDateString('en-IN', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                timeZone: 'Asia/Kolkata'
+            });
+        }
+
+        function generateCalendar(modules) {
+            const calendarGrid = document.getElementById('calendarGrid');
+            const today = new Date();
+            const currentMonth = today.getMonth();
+            const currentYear = today.getFullYear();
+            
+            // Get first day of the month
+            const firstDay = new Date(currentYear, currentMonth, 1);
+            const startingDay = firstDay.getDay();
+            
+            // Get last day of the month
+            const lastDay = new Date(currentYear, currentMonth + 1, 0);
+            const totalDays = lastDay.getDate();
+            
+            // Clear previous calendar
+            calendarGrid.innerHTML = '';
+            
+            // Add empty cells for days before the first day of the month
+            for (let i = 0; i < startingDay; i++) {
+                const prevMonthDay = new Date(currentYear, currentMonth, 0 - (startingDay - i - 1));
+                calendarGrid.appendChild(createDateCell(prevMonthDay, modules, true));
+            }
+            
+            // Add cells for current month
+            for (let day = 1; day <= totalDays; day++) {
+                const date = new Date(currentYear, currentMonth, day);
+                calendarGrid.appendChild(createDateCell(date, modules, false));
+            }
+            
+            // Add empty cells for days after the last day of the month
+            const remainingCells = 42 - (startingDay + totalDays); // 6 rows * 7 days
+            for (let i = 1; i <= remainingCells; i++) {
+                const nextMonthDay = new Date(currentYear, currentMonth + 1, i);
+                calendarGrid.appendChild(createDateCell(nextMonthDay, modules, true));
+            }
+        }
+
+        function createDateCell(date, modules, isOtherMonth) {
+            const cell = document.createElement('div');
+            cell.className = `calendar-date ${isOtherMonth ? 'other-month' : 'current-month'}`;
+            
+            const dateNumber = document.createElement('div');
+            dateNumber.className = 'date-number';
+            dateNumber.textContent = date.getDate();
+            cell.appendChild(dateNumber);
+            
+            // Create container for module events
+            const eventsContainer = document.createElement('div');
+            eventsContainer.className = 'module-events-container';
+            
+            // Check if there are modules scheduled for this date
+            const dayModules = modules.filter(module => {
+                const moduleDate = new Date(module.unlockDate);
+                return moduleDate.getDate() === date.getDate() &&
+                       moduleDate.getMonth() === date.getMonth() &&
+                       moduleDate.getFullYear() === date.getFullYear();
+            });
+            
+            // Add module events to the container
+            dayModules.forEach(module => {
+                const event = document.createElement('div');
+                event.className = 'module-event';
+                event.textContent = module.title;
+                eventsContainer.appendChild(event);
+            });
+            
+            cell.appendChild(eventsContainer);
+            
+            // Highlight today
+            const today = new Date();
+            if (date.getDate() === today.getDate() &&
+                date.getMonth() === today.getMonth() &&
+                date.getFullYear() === today.getFullYear()) {
+                cell.classList.add('today');
+            }
+            
+            return cell;
+        }
+
+        function displayScheduledModules() {
+            const eventList = document.getElementById('eventList');
+            const modules = JSON.parse(localStorage.getItem('scheduledModules')) || [];
+
+            // Update module durations to 10 minutes
+            modules.forEach(module => {
+                module.duration = 10;
+            });
+
+            // Generate calendar with modules
+            generateCalendar(modules);
+
+            eventList.innerHTML = modules.map(module => {
+                const startTime = new Date(module.unlockDate);
+                const endTime = new Date(startTime.getTime() + module.duration * 60000);
+                
+                return `
+                    <div class="event-item">
+                        <div class="event-title">${module.title}</div>
+                        <div class="event-date">
+                            ${startTime.toLocaleTimeString('en-IN', { 
+                                hour: '2-digit', 
+                                minute: '2-digit',
+                                timeZone: 'Asia/Kolkata'
+                            })} - 
+                            ${endTime.toLocaleTimeString('en-IN', { 
+                                hour: '2-digit', 
+                                minute: '2-digit',
+                                timeZone: 'Asia/Kolkata'
+                            })}
+                        </div>
+                        <div class="event-duration">Duration: ${module.duration} minutes</div>
+                    </div>
+                `;
+            }).join('');
+
+            // Update localStorage with new durations
+            localStorage.setItem('scheduledModules', JSON.stringify(modules));
+        }
+
+        // Display modules when page loads
+        displayScheduledModules();
+    </script>
+</body>
+</html> 
