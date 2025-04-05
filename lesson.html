@@ -437,19 +437,31 @@
       margin-top: 29px;
       height: 1px;
     }
+    .navigation-buttons {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .prev-phrase-button,
     .next-phrase-button {
       border-radius: 7px;
       background-color: #4f46e5;
-      margin-top: 33px;
       color: #fff;
       text-align: center;
       padding: 12px 46px;
       font: 500 16px Inter, sans-serif;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s;
     }
-    @media (max-width: 991px) {
-      .next-phrase-button {
-        padding: 0 20px;
-      }
+    .prev-phrase-button:hover,
+    .next-phrase-button:hover {
+      background-color: #4338ca;
+    }
+    .prev-phrase-button:disabled,
+    .next-phrase-button:disabled {
+      background-color: #cbd5e1;
+      cursor: not-allowed;
     }
     .footer {
       background-color: #f8fafc;
@@ -599,13 +611,83 @@
     .nav-icon {
       font-size: 24px;
     }
+
+    .audio-player {
+      margin-top: 16px;
+      width: 100%;
+      background-color: #f8fafc;
+      border-radius: 8px;
+      padding: 12px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .audio-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .audio-play-button {
+      background-color: #4f46e5;
+      border: none;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: white;
+      font-size: 12px;
+      transition: background-color 0.3s;
+    }
+
+    .audio-play-button:hover {
+      background-color: #4338ca;
+    }
+
+    .audio-progress {
+      flex-grow: 1;
+      height: 4px;
+      background-color: #e2e8f0;
+      border-radius: 2px;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .audio-progress-bar {
+      position: absolute;
+      height: 100%;
+      background-color: #4f46e5;
+      border-radius: 2px;
+      width: 0%;
+    }
+
+    .audio-progress-handle {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      background-color: #4f46e5;
+      border-radius: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      left: 0%;
+      cursor: pointer;
+    }
+
+    .audio-time {
+      color: #64748b;
+      font-size: 14px;
+      min-width: 40px;
+      text-align: right;
+    }
 </style>
   
   <div class="lesson-screen">
     <header class="header-container">
       <div class="header-content">
         <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/ff40d7229ec140058f362151fc1e4153/3a4a576d2df44e485d501912f9b1896d9a86d47fd61f6ba75de56c52d224e040?apiKey=ff40d7229ec140058f362151fc1e4153&" class="logo" alt="Company Logo" />
-        <h1 class="lesson-title">Customer Greetings - Lesson 1</h1>
+        <h1 class="lesson-title">Customer Complaints</h1>
         <span class="user-initials">JD</span>
       </div>
       <div class="user-avatar">JD</div>
@@ -617,7 +699,7 @@
           <div class="lesson-container">
             <div class="video-container">
               <video id="aiVideo" class="video-background" controls>
-                <source src="ai_avatar.mp4" type="video/mp4">
+                <source src="videos/ai_avatar.mp4" type="video/mp4">
                 Your browser does not support the video tag.
               </video>
             </div>
@@ -636,15 +718,28 @@
             <div class="query-container">
               <p class="query-text">I have a query regarding my delivery delay</p>
               <div class="action-buttons">
-                <button class="listen-button">
+                <button class="listen-button" id="playbackButton" disabled>
                   <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/ff40d7229ec140058f362151fc1e4153/cd0f47a2e67caf23917e74f842df201927edc402db9a9b28f3e17212ff41c96e?apiKey=ff40d7229ec140058f362151fc1e4153&" class="listen-icon" alt="Listen Icon" />
-                  Listen AI
+                  Play Recording
                 </button>
                 <button class="speak-button" id="speakButton">
                   <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/ff40d7229ec140058f362151fc1e4153/d065bae5e0c0833621eb4e39b36485448847767d7df33d64821a1a4c840a2233?apiKey=ff40d7229ec140058f362151fc1e4153&" class="speak-icon" alt="Speak Icon" />
                   <span id="speakButtonText">Speak Now</span>
                 </button>
               </div>
+              <div class="audio-player" id="audioPlayer" style="display: none;">
+                <div class="audio-controls">
+                  <button class="audio-play-button" id="audioPlayButton">
+                    <span class="play-icon">▶</span>
+                  </button>
+                  <div class="audio-progress">
+                    <div class="audio-progress-bar" id="audioProgressBar"></div>
+                    <div class="audio-progress-handle" id="audioProgressHandle"></div>
+                  </div>
+                  <span class="audio-time" id="audioTime">0:00</span>
+                </div>
+              </div>
+              <audio id="recordedAudio"></audio>
             </div>
           </div>
         </section>
@@ -682,7 +777,10 @@
               </div>
             </div>
             <div class="divider"></div>
-            <button class="next-phrase-button">Next Phrase</button>
+            <div class="navigation-buttons">
+              <button class="prev-phrase-button">Previous Phrase</button>
+              <button class="next-phrase-button">Next Phrase</button>
+            </div>
           </div>
         </aside>
       </div>
@@ -716,10 +814,90 @@
 let mediaRecorder;
 let audioChunks = [];
 let isRecording = false;
+let recordedAudioBlob = null;
+let isPlaying = false;
+let currentVideoIndex = 0;
+
+// Array of video sources
+const videoSources = [
+    'videos/ai_avatar.mp4',
+    'videos/lesson2.mp4',
+    'videos/lesson3.mp4'
+];
+
+// Function to reset recording state
+function resetRecordingState() {
+    const audioPlayer = document.getElementById('audioPlayer');
+    const playbackButton = document.getElementById('playbackButton');
+    const playButton = document.getElementById('audioPlayButton');
+    const progressBar = document.getElementById('audioProgressBar');
+    const progressHandle = document.getElementById('audioProgressHandle');
+    const timeDisplay = document.getElementById('audioTime');
+    const recordedAudio = document.getElementById('recordedAudio');
+
+    // Reset audio player
+    audioPlayer.style.display = 'none';
+    playbackButton.disabled = true;
+    playButton.innerHTML = '<span class="play-icon">▶</span>';
+    progressBar.style.width = '0%';
+    progressHandle.style.left = '0%';
+    timeDisplay.textContent = '0:00';
+    recordedAudio.src = '';
+    isPlaying = false;
+
+    // Reset recording state
+    if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+        mediaRecorder.stop();
+        mediaRecorder.stream.getTracks().forEach(track => track.stop());
+    }
+    isRecording = false;
+    const speakButton = document.getElementById('speakButton');
+    const speakButtonText = document.getElementById('speakButtonText');
+    speakButton.classList.remove('recording');
+    speakButtonText.textContent = 'Speak Now';
+}
+
+// Function to update video source
+function updateVideoSource() {
+    const video = document.getElementById('aiVideo');
+    video.src = videoSources[currentVideoIndex];
+    video.load(); // Reload the video
+    video.play(); // Start playing the new video
+
+    // Update button states
+    const prevButton = document.querySelector('.prev-phrase-button');
+    const nextButton = document.querySelector('.next-phrase-button');
+    
+    prevButton.disabled = currentVideoIndex === 0;
+    nextButton.disabled = currentVideoIndex === videoSources.length - 1;
+}
+
+// Previous Phrase button click handler
+document.querySelector('.prev-phrase-button').addEventListener('click', () => {
+    if (currentVideoIndex > 0) {
+        currentVideoIndex--;
+        resetRecordingState();
+        updateVideoSource();
+    }
+});
+
+// Next Phrase button click handler
+document.querySelector('.next-phrase-button').addEventListener('click', () => {
+    if (currentVideoIndex < videoSources.length - 1) {
+        currentVideoIndex++;
+        resetRecordingState();
+        updateVideoSource();
+    }
+});
+
+// Initialize button states
+updateVideoSource();
 
 document.getElementById('speakButton').addEventListener('click', async () => {
     const button = document.getElementById('speakButton');
     const buttonText = document.getElementById('speakButtonText');
+    const playbackButton = document.getElementById('playbackButton');
+    const audioPlayer = document.getElementById('audioPlayer');
 
     if (!isRecording) {
         try {
@@ -732,11 +910,12 @@ document.getElementById('speakButton').addEventListener('click', async () => {
             };
 
             mediaRecorder.onstop = () => {
-                const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
-                // Here you can:
-                // 1. Send the audioBlob to your server
-                // 2. Play it back
-                // 3. Process it locally
+                recordedAudioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                const audioUrl = URL.createObjectURL(recordedAudioBlob);
+                const recordedAudio = document.getElementById('recordedAudio');
+                recordedAudio.src = audioUrl;
+                playbackButton.disabled = false;
+                audioPlayer.style.display = 'block';
                 console.log('Recording stopped, audio blob created');
             };
 
@@ -745,6 +924,8 @@ document.getElementById('speakButton').addEventListener('click', async () => {
             isRecording = true;
             button.classList.add('recording');
             buttonText.textContent = 'Stop Recording';
+            playbackButton.disabled = true;
+            audioPlayer.style.display = 'none';
 
         } catch (err) {
             console.error('Error accessing microphone:', err);
@@ -762,19 +943,68 @@ document.getElementById('speakButton').addEventListener('click', async () => {
     }
 });
 
-// Optional: Add keyboard shortcut (Space bar) to toggle recording
-document.addEventListener('keydown', (event) => {
-    if (event.code === 'Space' && event.target.tagName !== 'INPUT' && event.target.tagName !== 'TEXTAREA') {
-        event.preventDefault();
-        document.getElementById('speakButton').click();
+// Add playback functionality
+document.getElementById('playbackButton').addEventListener('click', () => {
+    const recordedAudio = document.getElementById('recordedAudio');
+    const audioPlayer = document.getElementById('audioPlayer');
+    if (recordedAudio.src) {
+        audioPlayer.style.display = 'block';
     }
 });
 
-// Add autoplay functionality if desired
+// Audio player controls
+const audio = document.getElementById('recordedAudio');
+const playButton = document.getElementById('audioPlayButton');
+const progressBar = document.getElementById('audioProgressBar');
+const progressHandle = document.getElementById('audioProgressHandle');
+const timeDisplay = document.getElementById('audioTime');
+
+playButton.addEventListener('click', () => {
+    if (isPlaying) {
+        audio.pause();
+        playButton.innerHTML = '<span class="play-icon">▶</span>';
+    } else {
+        audio.play();
+        playButton.innerHTML = '<span class="play-icon">⏸</span>';
+    }
+    isPlaying = !isPlaying;
+});
+
+audio.addEventListener('timeupdate', () => {
+    const progress = (audio.currentTime / audio.duration) * 100;
+    progressBar.style.width = `${progress}%`;
+    progressHandle.style.left = `${progress}%`;
+    
+    // Update time display
+    const minutes = Math.floor(audio.currentTime / 60);
+    const seconds = Math.floor(audio.currentTime % 60);
+    timeDisplay.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+});
+
+audio.addEventListener('ended', () => {
+    isPlaying = false;
+    playButton.innerHTML = '<span class="play-icon">▶</span>';
+    progressBar.style.width = '0%';
+    progressHandle.style.left = '0%';
+    timeDisplay.textContent = '0:00';
+});
+
+// Progress bar click handler
+const progressContainer = document.querySelector('.audio-progress');
+progressContainer.addEventListener('click', (e) => {
+    const rect = progressContainer.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const percentage = (x / rect.width) * 100;
+    audio.currentTime = (percentage / 100) * audio.duration;
+});
+
+// Update the video loadedmetadata event listener
 document.getElementById('aiVideo').addEventListener('loadedmetadata', function() {
     // Ensure video has audio enabled
     this.muted = false;
     this.volume = 1.0;
+    // Auto-play the video
+    this.play();
 });
 </script>
 
