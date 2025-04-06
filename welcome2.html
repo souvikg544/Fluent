@@ -432,18 +432,11 @@
                 <button type="button" class="language-button" onclick="toggleLanguage(this)">Portuguese</button>
               </div>
             </div>
-            <div class="form-group">
-              <label for="learning-prompt" class="form-label">Learning Module Prompt</label>
-              <textarea id="learning-prompt" class="form-input" rows="6" readonly style="background-color: #f8fafc; cursor: not-allowed;">
-Create comprehensive language learning modules focusing on real-world business scenarios for "Concentrix". Include scenarios for situations like:
-Handling customer complaints professionally, Greeting customers and making introductions,Managing difficult customer situations, Providing product/service information, Closing conversations and follow-up procedures, etc.
-              </textarea>
-            </div>
             <div id="proficiency-container" class="proficiency-container">
               <!-- Proficiency selections will be added here dynamically -->
             </div>
             <div class="action-buttons">
-              <button type="button" class="previous-button" onclick="window.location.href='welcome.html'">Previous</button>
+              <button type="button" class="previous-button" onclick="window.location.href='/welcome'">Previous</button>
               <button type="button" class="complete-button" onclick="handleProfileCompletion()">Complete Profile</button>
             </div>
           </form>
@@ -534,6 +527,6 @@ function handleProfileCompletion() {
         languages: languageData
     }));
 
-    window.location.href = 'learning.html';
+    window.location.href = '/learning';
 }
 </script>

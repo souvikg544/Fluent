@@ -307,8 +307,11 @@
             <span id="study-duration">2</span>
             <button type="button" class="duration-control" aria-label="Increase months">+</button>
           </div>
-          <label for="learning-situation" class="form-label">What situation are you learning for?</label>
-          <textarea id="learning-situation" class="learning-situation"></textarea>
+          <label for="learning-prompt" class="form-label">Learning Module Prompt</label>
+          <textarea id="learning-prompt" class="learning-situation" readonly style="background-color: #f8fafc; cursor: not-allowed;">
+Create comprehensive language learning modules focusing on real-world business scenarios for "Concentrix". Include scenarios for situations like:
+Handling customer complaints professionally, Greeting customers and making introductions, Managing difficult customer situations, Providing product/service information, Closing conversations and follow-up procedures, etc.
+          </textarea>
           <button type="submit" class="submit-button">Create My Learning Plan</button>
         </form>
       </div>
@@ -324,7 +327,7 @@ function handleLearningPlanSubmission(event) {
   const proficiencyLevel = document.querySelector('.proficiency-option.selected')?.textContent || '';
   const timeDedication = document.getElementById('time-dedication').value;
   const studyDuration = document.getElementById('study-duration').textContent;
-  const learningSituation = document.getElementById('learning-situation').value;
+  const learningSituation = document.getElementById('learning-prompt').value;
 
   if (!language || !proficiencyLevel) {
     alert('Please select a language and proficiency level');
@@ -341,8 +344,8 @@ function handleLearningPlanSubmission(event) {
     progress: 0 // Initial progress
   }));
 
-  // Redirect to home page
-  window.location.href = 'home.html';
+  // Redirect to home page using Flask route
+  window.location.href = '/home';
 }
 
 // Add proficiency selection

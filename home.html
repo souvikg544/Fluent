@@ -1,8 +1,16 @@
 <style>
+    /* Base font styles */
+    body {
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      color: #1e293b;
+    }
+
     .progress-percentage {
       color: var(--indigo-600);
       margin-top: 8px;
-      font: 700 16px Inter, sans-serif;
+      font: 700 16px/1.5 Inter, sans-serif;
     }
     .home-screen {
       background-color: #fff;
@@ -96,7 +104,7 @@
     .progress-title {
       color: #1e293b;
       align-self: flex-start;
-      font: 700 24px/1 Inter, sans-serif;
+      font: 700 24px/1.5 Inter, sans-serif;
     }
     .progress-bar-container {
       border-radius: 8px;
@@ -118,7 +126,7 @@
       width: 100%;
       justify-content: space-between;
       color: #64748b;
-      font: 400 14px/1 Inter, sans-serif;
+      font: 400 14px/1.5 Inter, sans-serif;
     }
     @media (max-width: 991px) {
       .progress-labels {
@@ -149,7 +157,7 @@
     }
     .active-modules-title {
       color: #1e293b;
-      font: 700 24px/1.4 Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font: 700 24px/1.5 Inter, sans-serif;
       align-self: flex-start;
     }
     .modules-list {
@@ -205,12 +213,11 @@
     .module-title {
       align-self: stretch;
       margin-bottom: 8px;
+      font: 600 16px/1.5 Inter, sans-serif;
     }
     .module-lesson {
       color: #64748b;
-      font-size: 14px;
-      font-weight: 400;
-      line-height: 1;
+      font: 400 14px/1.5 Inter, sans-serif;
     }
     .continue-buttons {
       margin-top: 24px;
@@ -235,7 +242,7 @@
       background-color: #4f46e5;
       color: #fff;
       padding: 8px 16px;
-      font-weight: 500;
+      font: 500 16px/1.5 Inter, sans-serif;
       border: none;
       transition: background-color 0.2s;
     }
@@ -267,8 +274,7 @@
     }
     .upcoming-modules-title {
       color: #1e293b;
-      font-size: 24px;
-      line-height: 1;
+      font: 700 24px/1.5 Inter, sans-serif;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -295,9 +301,7 @@
     }
     .unlock-info {
       color: #64748b;
-      font-size: 14px;
-      font-weight: 400;
-      line-height: 1;
+      font: 400 14px/1.5 Inter, sans-serif;
     }
     .leaderboard-section {
       border-radius: 16px;
@@ -320,9 +324,7 @@
     }
     .leaderboard-title {
       color: #1e293b;
-      font-size: 24px;
-      font-weight: 700;
-      line-height: 1;
+      font: 700 24px/1.5 Inter, sans-serif;
       align-self: flex-start;
       margin-left: 24px;
     }
@@ -349,8 +351,7 @@
       align-items: center;
       color: #64748b;
       text-decoration: none;
-      font-family: Inter, sans-serif;
-      font-size: 12px;
+      font: 400 12px/1.5 Inter, sans-serif;
       gap: 4px;
     }
     .nav-item.active {
@@ -448,16 +449,15 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 14px;
-      font-weight: 500;
+      font: 500 14px/1.5 Inter, sans-serif;
     }
     .user-name {
       color: #1e293b;
-      font-weight: 500;
+      font: 500 16px/1.5 Inter, sans-serif;
     }
     .score {
       color: #64748b;
-      font-weight: 500;
+      font: 500 16px/1.5 Inter, sans-serif;
     }
     .learning-journey {
       background-color: #fff;
@@ -482,7 +482,7 @@
       border-radius: 8px;
       background-color: #4f46e5;
       color: #fff;
-      font: 500 14px Inter, sans-serif;
+      font: 500 16px/1.5 Inter, sans-serif;
       border: none;
       cursor: pointer;
       transition: all 0.2s ease-in-out;
@@ -528,7 +528,7 @@
                       <p class="module-lesson">Lesson 1</p>
                     </div>
                   </div>
-                  <button class="continue-btn" onclick="window.location.href='lesson.html'">Start</button>
+                  <button class="continue-btn" onclick="window.location.href='/lesson'">Start</button>
                 </div>
                 <div class="module-row">
                   <div class="module-left">
@@ -538,7 +538,7 @@
                       <p class="module-lesson">Lesson 2</p>
                     </div>
                   </div>
-                  <button class="continue-btn" onclick="window.location.href='lesson.html'">Start</button>
+                  <button class="continue-btn" onclick="window.location.href='/lesson'">Start</button>
                 </div>
                 <div class="module-row">
                   <div class="module-left">
@@ -548,7 +548,7 @@
                       <p class="module-lesson">Lesson 3</p>
                     </div>
                   </div>
-                  <button class="continue-btn" onclick="window.location.href='lesson.html'">Start</button>
+                  <button class="continue-btn" onclick="window.location.href='/lesson'">Start</button>
                 </div>
                 <div class="module-row">
                   <div class="module-left">
@@ -558,7 +558,7 @@
                       <p class="module-lesson">Lesson 4</p>
                     </div>
                   </div>
-                  <button class="continue-btn" onclick="window.location.href='lesson.html'">Start</button>
+                  <button class="continue-btn" onclick="window.location.href='/lesson'">Start</button>
                 </div>
               </div>
             </div>
@@ -644,19 +644,19 @@
         </section>
       </div>
       <nav class="bottom-nav">
-        <a href="home.html" class="nav-item active">
+        <a href="/home" class="nav-item active">
           <span class="nav-icon">🏠</span>
           <span>Home</span>
         </a>
-        <a href="search.html" class="nav-item">
+        <a href="/search" class="nav-item">
           <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/ff40d7229ec140058f362151fc1e4153/5695d02fa3b0812d4ddb1d63b57c02e0cf92fdeffaa402ac76d9cb4c0614b757?apiKey=ff40d7229ec140058f362151fc1e4153&" class="nav-icon" alt="Search Icon" />
           <span>Search</span>
         </a>
-        <a href="dashboard.html" class="nav-item">
+        <a href="/dashboard" class="nav-item">
           <span class="nav-icon">📊</span>
           <span>Dashboard</span>
         </a>
-        <a href="profile.html" class="nav-item">
+        <a href="/profile" class="nav-item">
           <span class="nav-icon">👤</span>
           <span>Profile</span>
         </a>
@@ -691,7 +691,7 @@ function scheduleModules() {
     // Store modules in localStorage
     localStorage.setItem('scheduledModules', JSON.stringify(modules));
     
-    // Redirect to calendar page
-    window.location.href = 'calendar.html';
+    // Redirect to calendar page using Flask route
+    window.location.href = '/calendar';
 }
 </script>
